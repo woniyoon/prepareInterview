@@ -53,6 +53,7 @@ const bubbleSort = (arr) => {
 // 3. Insertion Sort (O(n^2))
 // 현재 비교하려는 값 이전의 값들이 이미 정렬됐다는 전제 조건
 // 선택,삽입 정렬과 똑같은 시간 복잡도를 가지지만, 효율성은 띄어남
+// 이미 정렬된 배열에 한해서 어떤 알고리즘보다 속도가 빠름!
 
 const insertionSort = (arr) => {
 
