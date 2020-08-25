@@ -1,5 +1,8 @@
 // 2020.08.24
 // 1. Selection Sort (O(n^2))
+// 한 사이클 마다 가장 작은 값을 찾아내 맨 앞에 있는 값과 교체
+
+let numArr = [2, 8, 1, 4, 7, 10, 3, 9, 6, 5];
 
 const selectionSort = (arr) => {
     
@@ -22,4 +25,26 @@ const selectionSort = (arr) => {
             arr[i] = temp;
         }
     }
+}
+
+// 2020.08.25
+// 2. Bubble Sort (O(n^2))
+// 옆에 있는 수와 비교하여, 가장 큰 수부터 맨 오른쪽으로 보냄
+// 선택정렬과 동일한 시간 복잡도를 가지나, 
+// 비교할 때마다 값 교체가 일어나기 때문에 정렬 알고리즘 중에서 가장 비효율적
+
+const bubbleSort = (arr) => {
+    for(var i=arr.length-1; i>=0; i--) {
+        for(var j=0; j<i; j++) {
+            var temp = 0;
+
+            if(arr[j] > arr[j+1]) {
+                temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+
+    console.log(arr);    
 }
