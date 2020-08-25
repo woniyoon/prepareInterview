@@ -48,3 +48,23 @@ const bubbleSort = (arr) => {
 
     console.log(arr);    
 }
+
+// 2020.08.25
+// 3. Insertion Sort (O(n^2))
+// 현재 비교하려는 값 이전의 값들이 이미 정렬됐다는 전제 조건
+// 선택,삽입 정렬과 똑같은 시간 복잡도를 가지지만, 효율성은 띄어남
+
+const insertionSort = (arr) => {
+
+    for(var i=0; i< arr.length; i++) {
+        for(var j=i; j>=0; j--) {
+            if(arr[j] < arr[j-1]){
+                var temp = arr[j];
+                arr[j] = arr[j-1];
+                arr[j-1] = temp;
+            }
+        }
+    }
+
+    console.log(arr);
+}
