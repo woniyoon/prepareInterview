@@ -74,3 +74,42 @@ const insertionSort = (arr) => {
 
     console.log(arr);
 }
+
+
+// 2020.08.26 - 2020.08.27
+// 4. Quick Sort (O(N * log N))
+// pivot값을 설정해주고, 그 pivot값을 중심으로 왼쪽에는 작은 값, 오른쪽에는 큰 값을 배치한다.
+// 분할 정복 알고리즘의 대표적인 예
+// 평균적으로 O(N * logN)의 시간복잡성을 가지나, 이미 정렬돼있는 배열에 대해서는 최악의 시간복잡성인 O(N^2)
+
+const quickSort = (arr, start, end) => {
+    
+    if(start >= end) {
+        return;
+    }
+
+    var pivot = start;
+    var i = start +1 , j = end;
+
+    while(i <= j) {
+        while(i<= end && arr[i] <= arr[pivot]) {
+            i++;
+        }
+        while(arr[j] >= arr[pivot] && j > start) {
+            j--;
+        }
+
+        if(i > j) {
+            var temp = arr[j];
+            arr[j] = arr[pivot];
+            arr[pivot] = temp;
+        } else {
+            var temp = arr[j];
+            arr[j] = arr[i];
+            arr[i] = temp;
+        }
+    }
+
+    quickSort(arr, start, j-1);
+    quickSort(arr, j+1 ,end);
+}
