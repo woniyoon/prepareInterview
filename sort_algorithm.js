@@ -113,3 +113,43 @@ const quickSort = (arr, start, end) => {
     quickSort(arr, start, j-1);
     quickSort(arr, j+1 ,end);
 }
+
+// 2020.08.28
+// 5. Merge Sort (O(N * logN))
+// 퀵정렬과 마찬가지로 분할&정복 알고리즘
+// 재귀호출 이용해 배열을 계속 쪼개고 쪼갰다가, 다시 그 크기를 비교해 합침
+// divide하는 함수와 conquer하는 함수 두 가지가 필요함
+
+function mergeSort(arr) {
+
+    if(arr.length === 1) {
+        return arr;
+    }
+
+    // 중심값을 매번 전달
+    const middle = Math.floor(arr.length / 2);
+    const leftSide = arr.slice(0, middle);
+    const rightSide = arr.slice(middle);
+
+    return merge(mergeSort(leftSide), mergeSort(rightSide));
+
+}
+
+function merge(left, right) {
+
+    let container = [];
+    let leftIndex = 0;
+    let rightIndex = 0;
+    
+    while(leftIndex < left.length && rightIndex < right.length) {
+        if(left[leftIndex] < right[rightIndex]) {
+            container.push(left[leftIndex]);
+            leftIndex++;
+        } else {
+            container.push(right[rightIndex]);
+            rightIndex++;
+        }
+    }
+
+    return [...container, ...left.slice(leftIndex), ...right.slice(rightIndex)];
+}
