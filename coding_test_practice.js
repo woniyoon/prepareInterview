@@ -47,5 +47,34 @@ function solution2(participant, completion) {
     return answer;
 }
 
+// 결국 본 최적의 답안
+// 이름 순으로 정렬 후, 처음부터 비교하면서 다른 값을 리턴하는 방법도 있었으나
+// Hash를 이용해야하므로 참고만 함.
 
+function findUncompleted(participant, completion) {
+    var answer = '';
+    var obj = {};
+    
+    for(var i =0; i< participant.length; i++) {
+        if(obj[""+participant[i]+""]) {
+            obj[""+participant[i]+""] += 1;
+        } else {
+            obj[""+participant[i]+""] = 1;
+        }
+        
+    }
+    
+    for(var j =0; j< completion.length; j++) {
+        obj[""+completion[j]+""] -= 1;
+    }
+    
+    for(var i =0; i< participant.length; i++) {
+        if(obj[""+participant[i]+""] > 0) {
+            answer = participant[i];
+            break;
+        }
+    }
+    
+    return answer;
+}
 
