@@ -58,3 +58,44 @@ class Solution2 {
     }
 
 }
+
+
+// 2020.08.31
+// 3. 위장
+
+// 채점 결과
+// 정확성: 28.6
+// 합계: 28.6 / 100.0
+
+class Solution3 {
+    public int solution(String[][] clothes) {
+        int answer = 0;
+        int solo = 0;
+        int combo = 1;
+        HashMap<String, Integer> map = new HashMap<>();
+        
+        for(int i=0; i<clothes.length; i++) {
+            String type = clothes[i][1];
+            // 맵에 없는 카테고리값일 때
+            if(!map.containsKey(clothes[i][1])) {
+                map.put(type, 1);
+            } else {
+                int value = map.get(type);
+                map.put(type, value+1);
+            }
+        }
+        
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            
+            if(map.size() > 1) {
+                solo += entry.getValue();
+            }   
+            
+            combo *= entry.getValue(); 
+        }
+        
+        answer = solo + combo;
+        return answer;
+        
+    }
+}
