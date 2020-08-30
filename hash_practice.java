@@ -99,3 +99,37 @@ class Solution3 {
         
     }
 }
+
+
+// 남의 해결책을 본 결과
+// 접근법은 옳았으나, 입지 않는 경우의 수를 생각하지 못해서 틀렸다 ㅠ_ㅠ
+// 입지 않는 것 또한 경우의 수에 포함되므로 1을 더 해서 생각하면 됐다.
+
+
+class Solution4 {
+    public int solution(String[][] clothes) {
+        int answer = 0;
+        int combo = 1;
+        HashMap<String, Integer> map = new HashMap<>();
+        
+        for(int i=0; i<clothes.length; i++) {
+            String type = clothes[i][1];
+            // 맵에 없는 카테고리값일 때
+            if(!map.containsKey(clothes[i][1])) {
+                map.put(type, 1);
+            } else {
+                int value = map.get(type);
+                map.put(type, value+1);
+            }
+        }
+        
+        for (int value : map.values()) {
+           combo *= (value + 1);
+        }
+        
+        answer = combo -1;
+        
+        return answer;
+        
+    }
+}
