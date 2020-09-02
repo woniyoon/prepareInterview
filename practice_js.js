@@ -62,3 +62,42 @@ function hateSameNums2(arr){
     
     return answer;
 }
+
+
+// 2016년
+// 처음엔 아래와 같은 방식으로 풀려고 했으나 FAIL~
+// 2번이 최적화된 답인가 싶었는데 내가 생각한 방식도 틀리진 않았었다.
+// 다만 숫자 계산에 약해서 틀렸을뿐...ㅠㅠ
+function whichDayOf2016_1(a, b) {
+    var answer = '';
+    var MONTH = [31,29,31,30,31,30,31,31,30,31,30,31];
+    var WEEK = ['FRI','SAT','SUN','MON','TUE','WED','THU'];
+    
+    var totalDays = 0;
+    
+    if(a > 1) {
+        for(var i=0; i<a-1; i++){
+            totalDays += MONTH[i];
+        }
+    }
+    
+    totalDays = totalDays + b - 1;
+    
+    var index = totalDays%7;
+
+    answer = WEEK[index];
+    return answer;
+}
+
+// 다른 사람들이 어떻게 풀었나 검색하다 찾은
+// Date의 함수를 이용해 푸는 완전 간단한 방법
+function whichDayOf2016_2(a, b) {
+    var answer = '';
+    
+    var date = new Date(2016, a-1, b);
+    let day = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
+
+    let index = date.getDay();
+    answer = day[index];
+    return answer;
+}
