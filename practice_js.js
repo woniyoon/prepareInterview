@@ -122,3 +122,49 @@ function sumBetweenTwoNums1(a, b) {
     
     return answer;
 }
+
+
+// 문자열 내 p와 y의 개수
+// 다행히 패스~! 하지만 regex 이용하면 더 간단하게 할 수 있을 것 같다.
+
+function numsOfPAndY1(s){
+    var answer = true;
+
+    const obj = {
+        p: 0,
+        y: 0,
+    }
+    
+    for(var i=0; i<s.length; i++) {
+        if(s[i].toLowerCase() == 'p' || s[i].toLowerCase() == 'y') {
+            obj[s[i].toLowerCase()] += 1;
+        }
+    }
+    
+    answer = (obj.p == obj.y) ? true : false;
+    
+    return answer;
+}
+
+// 신박하다!!
+function numsOfPAndY2(s) {
+    var answer = true;
+
+    var numOfP = s.toLowerCase().split("p").length;
+    var numOfY = s.toLowerCase().split("y").length;
+
+    answer = numOfP == numOfY;
+
+    return answer;
+}
+
+
+// regex를 이용해 푸는 방법 !
+// i는 대/소문자 무시하고
+// g는 전체에서
+function numsOfPAndY3(s) {
+    if(s.match(/p/ig) == null || s.match(/y/ig) == null) {
+        return false;
+    }
+    return s.match(/p/ig).length == s.match(/y/ig).length;
+}
