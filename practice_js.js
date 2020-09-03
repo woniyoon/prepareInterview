@@ -101,3 +101,24 @@ function whichDayOf2016_2(a, b) {
     answer = day[index];
     return answer;
 }
+
+
+// 두 정수 사이의 합
+// 반복문을 돌리지 않는 방향으로 해결하고 싶었으나
+// 제출하면 81.3점 
+// 테스트케이스에 양수-양수, 음수-음수, 음수-양수 추가했을 때 다 문제없이 됐는데
+// 숫자가 너무 커져서 그런가 싶기도 하고.
+
+function sumBetweenTwoNums1(a, b) {
+    var answer = 0;
+    
+    if(a == b) {
+        return a;
+    }
+    
+    var max = Math.max(a, b);
+    var min = Math.min(a,b);
+    answer = max*(max+1)/2 - min*(min-1)/2;
+    
+    return answer;
+}
