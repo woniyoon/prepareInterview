@@ -168,3 +168,33 @@ function numsOfPAndY3(s) {
     }
     return s.match(/p/ig).length == s.match(/y/ig).length;
 }
+
+
+// 콜라츠 추측
+// 한 문제가 계속 안 풀려서 검색해보니,
+// 주어진 숫자가 1이면 바로 0을 리턴해야했다 ㅠㅠ
+
+function proveCollatzNum(num) {
+    var answer = 0;
+    var n = 0;
+    
+    if(num == 1) {
+        return n;
+    }
+    
+    while(n < 500) {
+        if(num % 2 == 0) {
+            num /=2;
+        } else {
+            num = num*3 + 1;
+        }
+        n++;
+        
+        if(num == 1) {
+            return n;
+        }
+    }
+    
+    answer = -1;
+    return answer;
+}
