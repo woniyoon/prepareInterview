@@ -231,3 +231,11 @@ function findTheKthNum2(array, commands) {
         return newArray[position - 1]
     })
 }
+
+// 가운데 글자 가져오기
+// slice를 이용하고 싶었는데 짝수일 때 계속 문제가 생겨서, 결국 index를 이용해 접근하는 방식으로 해결했다.
+// 답안을 보니 substr을 이용할 수도 있었는데...
+
+function getMidChar(s) {
+    return s.length % 2 == 0 ? s[(s.length/2)-1] + s[s.length/2] : s[Math.floor(s.length/2)];
+}
