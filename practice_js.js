@@ -198,3 +198,36 @@ function proveCollatzNum(num) {
     answer = -1;
     return answer;
 }
+
+// the K-th num
+// 이거 풀기 전에 자바스크립트 문서를 읽은게 큰 도움이 됐다.
+// 그래서 내장함수를 많이 이용해서 풀었는데, 2번 테스트 케이스를 통과하지 못해 검색해보니
+// 정수 배열을 sort()를 이용해 정렬하면, 숫자로 인식하지 못해서 원하는대로 정렬이 안 되는 경우가 있어서였다.
+// 이것 또한 자바스크립트 문서에 나왔던건데, 틀린 덕분에 배워간다.
+// 가장 좋아요를 많이 받은 풀이법은 구조 분해 할당(destructing assignment)와 filter 함수까지 사용했는데
+// 엄청 간단하고, 내가 배운 개념을 사용해서 풀이했다. 많이 배워가는 하루
+
+function findTheKthNum(array, commands) {
+    var answer = [];
+    
+    for(let arr of commands) {
+        var partArr = array.slice(arr[0]-1, arr[1]);
+        var index = arr[2];
+        partArr.sort((e1, e2)=> e1-e2);
+        answer.push(partArr[index-1]);
+    }
+    
+    return answer;
+}
+
+// 가장 좋아요를 많이 받은 해결책
+function findTheKthNum2(array, commands) {
+    return commands.map(command => {
+        const [sPosition, ePosition, position] = command
+        const newArray = array
+            .filter((value, fIndex) => fIndex >= sPosition - 1 && fIndex <= ePosition - 1)
+            .sort((a,b) => a - b)    
+
+        return newArray[position - 1]
+    })
+}
