@@ -239,3 +239,23 @@ function findTheKthNum2(array, commands) {
 function getMidChar(s) {
     return s.length % 2 == 0 ? s[(s.length/2)-1] + s[s.length/2] : s[Math.floor(s.length/2)];
 }
+
+
+// 나누어 떨어지는 숫자 배열
+// 여러 조건들을 고려하지 못해서 처음에 에러 발생
+// 배열의 사이즈가 0일 때를 고려하는 습관을 들이자!
+// 이번에는 filter를 한 번 사용해봤다.
+
+function sumOfParticularNums(arr, divisor) {
+    var answer = [];
+    
+    answer = arr.filter((item, index) => {
+        return item % divisor == 0;
+    }).sort((num1, num2) => num1 - num2);
+    
+    if(answer.length == 0) {
+        answer.push(-1);
+    }
+    
+    return answer;
+}
