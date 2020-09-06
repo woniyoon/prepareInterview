@@ -289,3 +289,17 @@ function convertStrToNum2(s) {
     var answer = s/1;
     return answer;
 }
+
+
+// 하샤드 수
+
+function isHarshadNum(x) {
+    var answer = true;
+    var str= x+"";
+    var num =0;
+    for(let s of str){        
+        num += Number(s);
+    }
+    
+    return x%num ==0;
+}
