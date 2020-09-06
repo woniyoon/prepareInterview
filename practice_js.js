@@ -259,3 +259,18 @@ function sumOfParticularNums(arr, divisor) {
     
     return answer;
 }
+
+
+// 자릿수 더하기
+// 가장 간단한 답은 아니었지만 성공~
+function calcEachDigit(n) {
+    var answer = 0;
+
+    n = n+"";
+    
+    for(let s of n) {
+        answer += Number(s);
+    }
+
+    return answer;
+}
