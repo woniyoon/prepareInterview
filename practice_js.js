@@ -274,3 +274,18 @@ function calcEachDigit(n) {
 
     return answer;
 }
+
+// 문자열을 정수로 바꾸기
+// 내장함수를 사용했다
+
+function convertStrToNum1(s) {
+    var answer = Number(s);
+    return answer;
+}
+
+
+// 누군가가 구현한 간단한 답
+function convertStrToNum2(s) {
+    var answer = s/1;
+    return answer;
+}
