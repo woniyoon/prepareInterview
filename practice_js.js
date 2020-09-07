@@ -303,3 +303,17 @@ function isHarshadNum(x) {
     
     return x%num ==0;
 }
+
+// 평균 구하기
+// 낯설지만, reduce를 이용해서 풀어봤다! 성공~!
+
+function getAvg(arr) {
+    var answer = 0;
+
+    var result = arr.reduce((prev, current) => {
+        return prev + current;
+    });
+
+    answer = result/arr.length;
+    return answer;
+}
