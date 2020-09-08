@@ -317,3 +317,33 @@ function getAvg(arr) {
     answer = result/arr.length;
     return answer;
 }
+
+
+// 핸드폰 번호 가리기
+// 가장 쉬운 방법으로 풀었다가, string의 내장함수인 replaceAll을 사용해보려고 했으나 에러가 났다.
+// 크롬에서 프로그래머스 사이트에 들어가서 풀었던건데,
+// 크롬에서 지원하지 않아서인거 같다.
+
+function hidePhoneNum1(phone_number) {
+    var answer = '';
+    
+    for(var i=0; i<phone_number.length; i++) {
+        if(i < phone_number.length - 4) {
+            answer += "*";
+        } else {
+            answer += phone_number[i];
+        }
+    }
+    
+    return answer;
+}
+
+
+// 가장 좋아요를 많이 받은 해결법은 정규식만으로 마지막 네 자리를 제외하고 모두 *로 바꾼 거였는데
+// 그것보다는 다음의 해결법이 더 인상깊어서 적어둔다.
+// String에 repeat라는 내장함수가 있는지 몰랐다!! 앞으로 아주 유용하게 사용할거 같다.
+
+function hidePhoneNum2(phone_number) {
+    var result = "*".repeat(s.length - 4) + s.slice(-4);
+    return result;
+}
