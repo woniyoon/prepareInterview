@@ -347,3 +347,18 @@ function hidePhoneNum2(phone_number) {
     var result = "*".repeat(s.length - 4) + s.slice(-4);
     return result;
 }
+
+
+// 짝수와 홀수
+// 이 문제는 여기 올리기 민망할 정돌 쉽지만
+// 다른 사람의 해결책에 내가 잘 알지 못하는게 있어서 추가했다.
+
+function isEvenOrOdd1(num) {
+    return num%2==0? "Even" : "Odd";
+}
+
+// 바로 0은 false, 1은 true라는 점을 이용한 해결법~!
+// 이 때 위의 해결법과는 달리 Odd와 Even의 위치가 바뀌어야 함!
+function isEvenOrOdd2(num) {
+    return num%2? "Odd" : "Even";
+}
