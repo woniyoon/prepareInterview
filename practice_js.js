@@ -362,3 +362,38 @@ function isEvenOrOdd1(num) {
 function isEvenOrOdd2(num) {
     return num%2? "Odd" : "Even";
 }
+
+
+// 124 나라의 숫자
+// 알듯 말듯 모르겠어서 결국에 해결법을 봤는데
+// 변환을 원하는 숫자를 3으로 나눠서 나머지에 따라 값을 계속 합쳐나가면 된다.
+// 어찌보면 이 문제도 주어진 숫자를 n진법으로 변환하는거라서
+// 깊게 생각했으면 풀 수 있었을텐데, 아쉬웠다 ㅠ_ㅠ
+
+
+function convertNumTo124Nums1(n) {
+    var answer = '';
+
+    while(n>0) {
+        if(n%3==1) {
+            answer = 1 + answer;
+            n = Math.floor(n/3);
+        } else if(n%3==2) {
+            answer = 2 + answer;
+            n = Math.floor(n/3);
+        } else if(n%3==0) {
+            answer = 4 + answer;
+            n = Math.floor(n/3) -1;
+            // 3으로 나눴을 때 나머지가 0인 경우에만 1을 빼서 n에 대입한다.
+        }
+    }
+
+    return answer;
+}
+
+
+// 가장 좋아요를 많이 받은 해결책은 재귀함수와 배열을 이용했다.
+// 간편하지만 덜 직관적이다 ㅠ_ㅠ
+function convertNumTo124Nums2(n) {
+    return n == 0 ? "" : convertNumTo124Nums2(parseInt((n-1)/3)) + [1, 2, 4][(n-1)%3];
+}
