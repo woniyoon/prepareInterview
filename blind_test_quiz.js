@@ -94,3 +94,26 @@ function calcFailureRate3(N, stages) {
         return a.stage - b.stage
     }).map(entry => entry.stage)
 }
+
+
+// 점프와 순간이동 (Summer/Winter Coding(~2018)
+// 뭐 하나 쉬운 게 없었다 ㅠㅠ ....
+// 재귀함수를 이용해야하나 싶었는데 좋아요를 많이 받은 해결책은 이진법을 이용해서 풀었다.
+// 주어진 숫자 n을 2로 나눠지면 순간이동을 해도 되는 거고
+// 그게 아니라면 무조건 1회 점프를 해야한다.
+// 이 때문에 이진법 계산이 가능해진다. (n을 2진법으로 옮길 때 1의 개수만큼이 결국 점프해야하는 횟수와 동일하다)
+
+function jumpAndWarp(n) {
+    let ans = 0;
+
+    while(n > 0) {
+        if (n%2 == 0) {
+            n /= 2;
+        } else {
+            n -=1;
+            ans++;
+        }
+    }
+
+    return ans;
+}
