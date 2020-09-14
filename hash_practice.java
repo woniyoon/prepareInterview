@@ -138,7 +138,7 @@ class Solution4 {
 // 나는야 포켓몬 마스터 이다솜 [https://www.acmicpc.net/problem/1620]
 // HashMap을 이용해서 풀었다!
 
-class PokemonMonster {
+class PokemonMaster {
     public static void main(String[ ] args) {
         
         Scanner scan = new Scanner(System.in);
