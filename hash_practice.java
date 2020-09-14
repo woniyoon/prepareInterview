@@ -133,3 +133,53 @@ class Solution4 {
         
     }
 }
+
+
+// 나는야 포켓몬 마스터 이다솜 [https://www.acmicpc.net/problem/1620]
+// HashMap을 이용해서 풀었다!
+
+class PokemonMonster {
+    public static void main(String[ ] args) {
+        
+        Scanner scan = new Scanner(System.in);
+
+        String[] mn = scan.nextLine().split(" ");
+        int m = Integer.parseInt(mn[0]);
+        int n = Integer.parseInt(mn[1]);
+        
+        HashMap<Integer, String> pokemonDic = new HashMap<>();
+        HashMap<String, Integer> pokemonList = new HashMap<>();
+
+        for(int i=0; i<m; i++) {
+            String pokemon = scan.nextLine();
+            
+            pokemonDic.put(i+1, pokemon);
+            pokemonList.put(pokemon, i+1);
+        }
+        
+        for(int i=0; i<n; i++) {
+            String searchInput = scan.nextLine();
+            
+            if(isNumeric(searchInput)) {
+                System.out.println(pokemonDic.get(Integer.parseInt(searchInput)));
+            } else {
+                System.out.println(pokemonList.get(searchInput));
+            }
+
+        }
+        
+    }
+    
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+}
+
