@@ -15,10 +15,9 @@ class Main {
     public static int getTheLastCard(int number){
         Deque<Integer> cardDeck = new ArrayDeque<Integer>();
         
-        for(int i=1; i<=number; i++) {
-            if(i%2==0) {
-                cardDeck.add(i);
-            }
+        for(int i=1; i<=number/2; i++) {
+            // 짝수만 넣으면 됨
+            cardDeck.add(i*2);
         }
 
         while(cardDeck.size() > 1) {
@@ -40,6 +39,7 @@ class Main {
         String input = scan.nextLine();
         int testCaseNum = Integer.parseInt(input);   
 
+        // 테스트케이스 개수만큼 반복
         for(int i=0; i<testCaseNum; i++) {
             HashMap<String, Integer> closet = new HashMap<>();
             int numOfClothing = Integer.parseInt(scan.nextLine());
@@ -47,6 +47,8 @@ class Main {
             for(int j=0; j<numOfClothing; j++) {
                 String clothing = scan.nextLine();
                 String type = clothing.split(" ")[1];
+
+                // 가지고 있는 옷 종류를 키로 하는 해시맵에 개수를 구해서 넣어줌
                 if(!closet.containsKey(type)) {
                     closet.put(type, 1);
                 } else {
