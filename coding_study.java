@@ -45,8 +45,11 @@ class Main {
             int numOfClothing = Integer.parseInt(scan.nextLine());
 
             for(int j=0; j<numOfClothing; j++) {
-                String clothing = scan.nextLine();
-                String type = clothing.split(" ")[1];
+                // String clothing = scan.nextLine();
+                // String type = clothing.split(" ")[1];
+
+                scan.next();        // scan.next()는 공백 전까지만 스캔!!
+				String type = scan.next();
 
                 // 가지고 있는 옷 종류를 키로 하는 해시맵에 개수를 구해서 넣어줌
                 if(!closet.containsKey(type)) {
