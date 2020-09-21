@@ -72,3 +72,49 @@ class Main {
         return combo-1;
     }
 }
+
+// 백준 알고리즘 4949번
+// 균형잡힌 세상 [https://www.acmicpc.net/problem/4949]
+
+class Main {
+    public static void main(String[ ] args) {
+        
+        Scanner scan = new Scanner(System.in);
+        String input = scan.nextLine();
+        String[] inputArr = input.split("\\n");
+        
+        System.out.println(inputArr.length);
+        for(int i=0; i<inputArr.length; i++) {
+            System.out.println(isBalanced(inputArr[i]));
+        }
+    }
+    
+    public static String isBalanced(String str) {
+        
+        str = "][";
+        String hi = str.replaceAll("[^\\(|\\)|\\[|\\]]", "");
+        String answer = "yes";
+        char[] charArr = hi.toCharArray();
+        
+        HashMap<Character, Character> map = new HashMap<>();
+        map.put('(', ')');
+        map.put('[', ']');
+        
+        Stack<Character> stack = new Stack();
+
+        for(int i=0; i<charArr.length; i++) {
+            char char1;
+            
+            if(charArr[i] == '(' || charArr[i] == '[') {
+                stack.push(charArr[i]);
+            } else {
+                if (stack.empty() || map.get(stack.pop()) != charArr[i]) {
+                    answer = "no";
+                    break;
+                }
+            }
+        }
+        
+        return answer;
+    }
+}
