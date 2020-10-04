@@ -397,3 +397,43 @@ function convertNumTo124Nums1(n) {
 function convertNumTo124Nums2(n) {
     return n == 0 ? "" : convertNumTo124Nums2(parseInt((n-1)/3)) + [1, 2, 4][(n-1)%3];
 }
+
+
+// 2020.10.04
+// 설탕배달
+// 생각해봤을 때는 쉬웠는데, 구현하려고 하니 어려웠다.
+// 처음에는 5kg짜리로 옮길 수 있는 것부터 계산하고 이후에 3kg로 가져갈 수 있는 개수를 더하면 된다 생각했는데
+// 5kg을 하나 빼면 3kg으로 가져갈 수 있는 경우도 있기 때문에 (n이 11kg일 때)
+// 결국 남이 쓴 코드를 봤다.
+// 그러나 대부분 다이나믹 프로그래밍을 이용하지 않은 것 같았다.
+
+let chart = [];
+
+console.log(chart[0]);
+
+function calcNumOfSugarCarrying(n){
+    const index = n;
+
+    if(chart[index] !== undefined) {
+        console.log("기록에 남아있습니다.");
+        return chart[index];
+    } else {
+        console.log("처음 계산해보네요.");
+
+        let cnt = 0;
+
+        while(true) {
+            if(n%5 === 0) {
+                chart[index] = n/5 + cnt;
+                return chart[index];
+            } else if(n < 3) {
+                return -1;
+            }     
+            n -= 3;
+            cnt++;
+        }
+    }
+}
+console.log(calcNumOfSugarCarrying(19));
+console.log(calcNumOfSugarCarrying(19));
+console.log(calcNumOfSugarCarrying(19));
