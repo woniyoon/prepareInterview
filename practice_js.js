@@ -437,3 +437,30 @@ function calcNumOfSugarCarrying(n){
 console.log(calcNumOfSugarCarrying(19));
 console.log(calcNumOfSugarCarrying(19));
 console.log(calcNumOfSugarCarrying(19));
+
+// 다른 사람이 푼 해결책 중 점화식을 이용해 다이나믹 프로그래밍을 활용한 게 있어서 다시 써본다.
+// 이 분에 의하면 3이나 5로 나눠지지 않는 케이스는 3보다 작은 1,2 제외하고 4와 7밖에는 없었다.
+
+function calcNumOfSugarCarrying2(n) {
+    // 0부터 7까지의 경우의 수를 기록. 
+    var cntChart = [-1, -1, -1, 1, -1, 1, 2, -1];
+
+    // 1부터 7까지는 이미 차트에 기록되어있음.
+    if(n < 8) {
+        return cntChart[n];
+    } else {
+        
+        for(var i=8; i<=n; i++) {
+            if(cntChart[i-3] !== -1 && cntChart[i-5] !== -1) {
+                // 3과 5 둘 다 나눠진다면 둘 중 더 작은 횟수를 사용한다.
+                cntChart[i] = 1 + Math.min(cntChart[i-3], cntChart[i-5]);
+            } else if (cntChart[i-3] === -1 && cntChart[i-5] !== -1) {
+                cntChart[i] = 1 + cntChart[i-5];
+            } else if (cntChart[i-3] !== -1 && cntChart[i-5] === -1) {
+                cntChart[i] = 1 + cntChart[i-3];
+            }
+        }
+
+        return cntChart[n];
+    }
+}
