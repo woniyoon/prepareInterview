@@ -183,3 +183,27 @@ class Main {
         
     }
 }
+
+
+// 위 답안의 while문 블럭 줄을 더 줄여서 해결해보았다.
+
+class Main {
+    public static void main(String[ ] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        int[] coins = {500, 100, 50, 10, 5, 1};
+        int price = sc.nextInt();
+        int change = 1000 - price;
+        int order = 0;
+        int count = 0;
+        
+        while(change > 0) {
+            count += (change / coins[order]);
+            change %= coins[order];
+            order++;
+        }
+        
+        System.out.println(count);
+        
+    }
+}
