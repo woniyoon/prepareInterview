@@ -121,3 +121,35 @@ class Main {
         return answer;
     }
 }
+
+
+// 백준 알고리즘 11399번 
+// ATM [https://www.acmicpc.net/problem/11399]
+// 해결법은 금방 떠올랐으나 계속 오류가 나서 뭔가 했더니,
+// 인출하는데 걸리는 시간을 한 줄로 받아왔던게 문제였던 것 같다.
+// 큰 것부터 차례 차례로 넣어 해결하는 탐욕 알고리즘을 역으로 이용해
+// 작은 것부터 차례로 넣어서 해결했다.
+
+
+class Main {
+    public static void main(String[ ] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        int num = sc.nextInt();
+        int [] withdrawlTime = new int[num];
+
+        for(int i=0; i<num; i++) {
+            withdrawlTime[i] = sc.nextInt();
+        }
+        
+        Arrays.sort(withdrawlTime);
+        
+        int spentTime = 0;
+
+        for(int j=0; j<withdrawlTime.length; j++) {
+            spentTime += (withdrawlTime[j] * (withdrawlTime.length-j)) ;
+        }
+
+        System.out.println(spentTime);
+    }
+}
