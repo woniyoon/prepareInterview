@@ -207,3 +207,32 @@ class Main {
         
     }
 }
+
+
+// 백준 알고리즘 11047번
+// 동전 0 [https://www.acmicpc.net/problem/11047]
+// 거스름돈과 매우 유사한 문제...
+
+class Main {
+    public static void main(String[ ] args) {
+        Scanner sc = new Scanner(System.in);
+
+		int n = sc.nextInt();
+		int k = sc.nextInt();
+		int unit[] = new int[n];
+		
+		for (int i = 0; i < n; i++) {
+            unit[i] = sc.nextInt();
+		}
+		
+		Arrays.sort(unit);
+		int count = 0;
+		
+		for(int j=unit.length-1; j>=0; j--) {
+            count += k / unit[j];
+            k %= unit[j];
+		}
+        
+        System.out.println(count);
+    }
+}
