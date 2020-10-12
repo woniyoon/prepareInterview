@@ -153,3 +153,33 @@ class Main {
         System.out.println(spentTime);
     }
 }
+
+
+// 백준 알고리즘 5585번
+// 거스름돈 [https://www.acmicpc.net/problem/5585]
+// 탐욕 알고리즘을 이용해서 푸는 문제
+// 탐욕 알고리즘을 이해하기에 가장 도움이 되는 문제 중 하나인 것 같다.
+
+class Main {
+    public static void main(String[ ] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        int[] coins = {500, 100, 50, 10, 5, 1};
+        int price = sc.nextInt();
+        int change = 1000 - price;
+        int order = 0;
+        int count = 0;
+        
+        while(change > 0) {
+            if(change < coins[order]) {
+                order++;
+            } else {
+                change -= coins[order];
+                count++;
+            }
+        }
+        
+        System.out.println(count);
+        
+    }
+}
