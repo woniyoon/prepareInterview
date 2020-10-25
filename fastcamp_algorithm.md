@@ -14,3 +14,43 @@
 - 일반적으로 재귀함수로 구현
 - 문제를 잘개 쪼갤 때, 부분 문제가 서로 중복되지 않음
 - 예) 퀵 정렬, 병합 정렬,...
+
+
+### 피보나치 수열 (동적계획법 이용)
+```javascript
+
+let memo = [0, 1];
+
+function fibo(n){
+    if(memo[n]) {
+        console.log("이미 계산됐음!");
+        return memo[n];
+    } else {
+
+        for(let i=2; i<n+1; i++) {
+            memo[i] = memo[i-1] + memo[i-2];
+        }
+
+        return memo[n];
+    }
+    
+    }
+
+function fibo2(n){
+    if(n <= 1) {
+        return memo[n];
+    } 
+    
+    if(memo[n]) {
+        console.log(n + "번째는 이미 계산되있음!");
+        return memo[n];
+    } else {
+        console.log(n + "번째는 아직 계산 안 되있음");
+        memo[n] = fibo2(n-1) + fibo2(n-2);
+        return memo[n];
+    }
+}
+
+console.log(fibo2(10));
+
+```
