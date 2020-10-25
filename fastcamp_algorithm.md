@@ -54,3 +54,51 @@ function fibo2(n){
 console.log(fibo2(10));
 
 ```
+
+
+### 퀵정렬 (Divide and Conquer 이용)
+- 예전에 풀어봤음에도 불구하고, 구현하는데 시간이 오래 걸렸다...
+- left와 right번째 인덱스에 있는 값 중 어느 것과 교환을 해야하고, 재귀적으로 호출할 때 넘겨야하는 값이 무엇인지 명확하게 알아야 함.
+
+```javascript
+
+let arr = [4, 10, 40, 22, 1, 90, 92, 30];
+
+const quickSort = (arr, start, end) => {
+        
+    if(start >= end) {
+        return;
+    }
+    
+    let pivot = start;
+    let left = start+1;
+    let right = end;
+    
+    while(left <= right) {
+        while(left <= end && arr[left] <= arr[pivot]) {
+            left++;
+        }
+        
+        while(right > start && arr[right] >= arr[pivot]){
+            right--;
+        }
+        
+        if(left > right) {
+            let temp = arr[pivot];
+            arr[pivot] = arr[right];
+            arr[right] = temp;
+        } else {
+            let temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+        }
+    }
+    
+    quickSort(arr, start, right-1);
+    quickSort(arr, right+1, end);
+}
+
+    quickSort(arr, 0, arr.length-1);
+    console.log(arr);
+
+```
