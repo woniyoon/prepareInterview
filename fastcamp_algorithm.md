@@ -102,3 +102,21 @@ const quickSort = (arr, start, end) => {
     console.log(arr);
 
 ```
+
+
+### Chapter 17
+
+
+### 그래프 이해
+
+- 정점(vertex, node), 간선(edge, link, branch)로 이루어져있음
+- 방향성 유무에 따라 directed graph와 undirected graph로 나눠짐
+- 방향 그래프(directed graph) : 방향이 있기 때문에 A->B(<A,B>로 표기)와 B->A(<B,A>로 표기)가 다름.
+- 무방향 그래프(undirected graph) : 방향이 없기 때문에 A->B와 B->A가 같기 때문에 (A,B) 혹은 (B,A)로 표기
+- 간선에 비용이나 가중치가 할당됐으면 가중치 그래프(weighted graph, network)
+- 연결 그래프(connected graph) : 무방향 그래프에서 모든 노드에 대한 경로가 항상 존재
+- 비연결 그래프(disconnected graph) : 무방향 그래프에서 특정 노드에 대한 경로가 존재하지 않음
+- 사이클(cycle) : 단순 경로의 시작 노드와 종료 노드가 동일한 경우
+- 비순환 그래프(acyclic graph) : 사이클이 없는 그래프
+- 완전 그래프(complete graph) : 그래프의 모든 노드가 서로 연결됨
+- 인접리스트 or 인정행렬로 구현가능
