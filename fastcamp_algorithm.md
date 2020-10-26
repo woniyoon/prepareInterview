@@ -1,4 +1,6 @@
 ### Chapter 14
+<br/>
+<br/>
 
 ### 동적계획법 (Dynamic Programming)
 - 입력 크기가 작은 부분 해결 & 그것을 이용해서 큰 부분 문제를 해결 -> 최종적으로 전체 문제를 해결하는 알고리즘
@@ -105,7 +107,8 @@ const quickSort = (arr, start, end) => {
 
 
 ### Chapter 17
-
+<br/>
+<br/>
 
 ### 그래프 이해
 
@@ -120,3 +123,14 @@ const quickSort = (arr, start, end) => {
 - 비순환 그래프(acyclic graph) : 사이클이 없는 그래프
 - 완전 그래프(complete graph) : 그래프의 모든 노드가 서로 연결됨
 - 인접리스트 or 인정행렬로 구현가능
+
+
+### Chapter 18
+<br/>
+<br/>
+
+### 너비우선탐색 (BFS)
+- 정점들과 같은 레벨에 있는 형제노드들을 먼저 탐색
+- 한 우물만 파고들며 끝을 볼 때까지 확인
+- 보통 큐를 이용해서 구현
+
