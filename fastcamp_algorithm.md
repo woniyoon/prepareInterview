@@ -140,33 +140,55 @@ const quickSort = (arr, start, end) => {
 
 ```javascript
 class Vertex {
-  constructor(label, value) {
-    this.label = label;
-    this.value = value;
-    this.nodeArr = [];
-  }
-  
-  addToNodeArr(node){
-    this.nodeArr.push(node);
-  }
-  
-  printUsingDFS(hasVisited){
-    // 정점값부터 출력 
-    console.log(this.label);
-    let currentIndex = (this.label).charCodeAt(0)-65;
-    hasVisited[currentIndex] = 1;
-    
-    for(let node of this.nodeArr) {
-      let index = (node.label).charCodeAt(0)-65;
-      
-      if(hasVisited[index] === 0){ 
-        hasVisited[index] = 1;
-        node.printUsingDFS(hasVisited);
-      } else {
-        continue;
-      }
+    constructor(label, value) {
+        this.label = label;
+        this.value = value;
+        this.nodeArr = [];
     }
-  }
+    
+    addToNodeArr(node){
+        this.nodeArr.push(node);
+    }
+    
+    printUsingDFS(hasVisited){
+        // 정점값부터 출력 
+        console.log(this.label);
+        let currentIndex = (this.label).charCodeAt(0)-65;
+        hasVisited[currentIndex] = 1;
+        
+        for(let node of this.nodeArr) {
+            let index = (node.label).charCodeAt(0)-65;
+            
+            if(hasVisited[index] === 0){ 
+            hasVisited[index] = 1;
+            node.printUsingDFS(hasVisited);
+            } else {
+            continue;
+            }
+        }
+    }
+
+    printUsingBFS(graph){
+        let hasVisited = new Array(graph.length).fill(0);
+        console.log(this.label);
+        
+        let currentIndex = (this.label).charCodeAt(0)-65;
+        hasVisited[currentIndex] = 1;
+
+        for(let vertex of graph) {
+            
+            for(let node of vertex.nodeArr) {
+                // console.log(node.label);
+                let index = (node.label).charCodeAt(0)-65;
+                if(hasVisited[index] === 0) {   // 아직 방문하지 않은 정점
+                    console.log(node.label);
+                    hasVisited[index] = 1;
+                } else {
+                    continue;
+                }
+            }
+        }
+    }
 }
 
 let graph = [];
@@ -231,10 +253,23 @@ vertexA.printUsingDFS(hasVisited);
 console.log(" ---------------------- ");
 hasVisited = new Array(graph.length).fill(0);
 
-vertexB.printUsingDFS(hasVisited);
+vertexA.printUsingBFS(graph);
 console.log(" ---------------------- ");
-hasVisited = new Array(graph.length).fill(0);
 
-vertexD.printUsingDFS(hasVisited);
+
+// C를 중심으로 그래프에 다시 넣어줌
+graph = [];
+graph.push(vertexC);
+graph.push(vertexA);
+graph.push(vertexG);
+graph.push(vertexH);
+graph.push(vertexI);
+graph.push(vertexB);
+graph.push(vertexJ);
+graph.push(vertexD);
+graph.push(vertexE);
+graph.push(vertexF);
+
+vertexC.printUsingBFS(graph);
 
 ```
