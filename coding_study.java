@@ -236,3 +236,93 @@ class Main {
         System.out.println(count);
     }
 }
+
+
+// 술래잡기 
+
+public class NHNQuiz1 {
+
+	public static class Node {
+	    char name;
+	    Node next;
+	    int taggerTimes;
+	    
+	    public Node(char name, Node next, int taggerTimes){
+	        this.name = name;
+	        this.next = next;
+	        this.taggerTimes = taggerTimes;
+	    }
+	}
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		LinkedList<Node> players = new LinkedList<>();
+		HashMap<Character, Integer> quickPlayers = new HashMap<>();
+		Node tagger = new Node('A', null, 1);
+		
+		
+        int numOfPlayers = sc.nextInt();
+
+		for(int i=0; i<numOfPlayers-1; i++) {
+		    char name = (char)(i+66);
+		    
+		    Node player = new Node(name, null, 0);
+		    players.add(player);
+		    
+		    if(i>0) {
+		        players.get(i-1).next = players.get(i);
+		    }
+		    if(i == numOfPlayers-2) {
+		        players.get(i).next = players.get(0);
+		    }
+		}
+		
+		
+		int numOfQuickPlayers = sc.nextInt();
+		
+		for(int i=0; i<numOfQuickPlayers; i++) {
+			quickPlayers.put(sc.next().toCharArray()[0], 1);
+		}
+		
+		int numOfGames = sc.nextInt();
+		int taggerLocation = 0;
+		
+		
+		for(int i=0; i<numOfGames; i++) {
+			int numOfMovesGame = sc.nextInt();
+			int playerNum = numOfPlayers -1;
+			taggerLocation = (taggerLocation+numOfMovesGame + playerNum) % (playerNum);
+			System.out.println("이동횟수 : "+numOfMovesGame );
+			System.out.println("술래의 위치 : "+taggerLocation );
+			char playerName = players.get(taggerLocation).name;
+			
+			if(quickPlayers.containsKey(playerName)) {
+				// 잡히지 않음
+				tagger.taggerTimes += 1;
+			} else {
+				// 잡힘
+				
+				// 잡힌 사람
+				Node newTagger = players.get(taggerLocation);
+				
+				players.get((taggerLocation-1+playerNum)%playerNum).next = tagger;
+				tagger.next = players.get((taggerLocation+1+playerNum)%playerNum);
+				players.remove(taggerLocation);
+				players.add(taggerLocation, tagger);
+				
+				tagger = newTagger;
+				tagger.taggerTimes += 1;
+			}
+		}
+		
+		for(int i=0; i<players.size(); i++) {
+			System.out.println(players.get(i).name+ "가 걸린 횟수 : " + players.get(i).taggerTimes);
+		}
+		
+		System.out.println(tagger.name+ "가 걸린 횟수 : " + tagger.taggerTimes);
+		
+		sc.close();
+		
+	}
+}
