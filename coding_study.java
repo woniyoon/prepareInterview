@@ -239,6 +239,8 @@ class Main {
 
 
 // 술래잡기 
+// 상아랑 같이 해결...
+// 시간은 오래 걸렸지만 여튼 작동이 됨
 
 public class NHNQuiz1 {
 	public static class Node {
@@ -321,6 +323,83 @@ public class NHNQuiz1 {
 		}
 		
 		System.out.println(tagger.name+ "가 걸린 횟수 : " + tagger.taggerTimes);
+		
+		sc.close();
+		
+	}
+}
+
+// TODO: 아직 안됨ㅠㅠㅠㅠㅠ
+// 시멘트 사용량 구하기 (NHN)
+// 나름대로 좋은 접근법을 만들었다 생각했으나 실패 .... 
+
+public class NHNQuiz2 {
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		int workingDays = Integer.parseInt(sc.nextLine());
+		int width = Integer.parseInt(sc.nextLine());
+		Integer[] area = new Integer[width];
+		Integer[] rank = new Integer[width];
+		Arrays.fill(area, 0);
+		int cementAmount = 0;
+		
+		for(int i=0; i<workingDays; i++) {
+			boolean[] isFilled = new boolean[width];
+			Arrays.fill(isFilled, false);
+			
+			String[] areaStr = sc.nextLine().split(" ");
+			
+			System.out.println(i+"일 째 ");
+			
+			for(int j=0; j<areaStr.length; j++) {
+				area[j] += Integer.parseInt(areaStr[j]);
+				System.out.println("각각의 높이 " + Integer.parseInt(areaStr[j]));
+				System.out.println("area["+j+"] :  "+area[j]);
+				rank[j] = area[j];
+			}
+			
+			Arrays.sort(rank, Collections.reverseOrder());
+			
+			int top = rank[0];
+			int topIndex = Arrays.asList(area).indexOf(top);
+			isFilled[topIndex] = true;
+
+			// 시멘트 채우기 
+			for(int k=1; k<rank.length; k++) {
+				int second = rank[k];
+				int secondIndex = Arrays.asList(area).indexOf(second);
+				
+				int minVal = Math.min(topIndex, secondIndex);
+				int maxVal = Math.max(topIndex, secondIndex);
+				System.out.println("second : " + second);
+
+				
+				if(Math.abs(top-second)==1) {
+					continue;
+				} else if(secondIndex != -1){
+					System.out.println("secondIndex : " + secondIndex);
+					isFilled[secondIndex] = true;
+					
+					for(int m=minVal; m<maxVal; m++) {
+						if(!isFilled[m]) {
+							System.out.println("채워지는 시멘트양 : " + (Math.abs(second - area[m])));
+							cementAmount += (second - area[m]);
+							area[m] += (second-area[m]);
+							isFilled[m] = true;							
+						}
+					}
+				}
+				
+			}
+			
+			System.out.println(i +"번째 날 채워진 총 시멘트 양 : " + cementAmount);
+			
+		}
+		
+		
+		System.out.println("시멘트양 : "+cementAmount);
 		
 		sc.close();
 		
