@@ -241,17 +241,17 @@ class Main {
 // 술래잡기 
 
 public class NHNQuiz1 {
-
 	public static class Node {
-	    char name;
-	    Node next;
-	    int taggerTimes;
-	    
-	    public Node(char name, Node next, int taggerTimes){
-	        this.name = name;
-	        this.next = next;
-	        this.taggerTimes = taggerTimes;
-	    }
+	
+        char name;
+        Node next;
+        int taggerTimes;
+
+        public Node(char name, Node next, int taggerTimes){
+            this.name = name;
+            this.next = next;
+            this.taggerTimes = taggerTimes;
+        }
 	}
 
 	public static void main(String[] args) {
@@ -265,17 +265,17 @@ public class NHNQuiz1 {
         int numOfPlayers = sc.nextInt();
 
 		for(int i=0; i<numOfPlayers-1; i++) {
-		    char name = (char)(i+66);
-		    
-		    Node player = new Node(name, null, 0);
-		    players.add(player);
-		    
-		    if(i>0) {
-		        players.get(i-1).next = players.get(i);
-		    }
-		    if(i == numOfPlayers-2) {
-		        players.get(i).next = players.get(0);
-		    }
+            char name = (char)(i+66);
+	
+            Node player = new Node(name, null, 0);
+            players.add(player);
+            
+            if(i>0) {
+                players.get(i-1).next = players.get(i);
+            }
+            if(i == numOfPlayers-2) {
+                players.get(i).next = players.get(0);
+            }
 		}
 		
 		
