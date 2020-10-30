@@ -464,3 +464,66 @@ function calcNumOfSugarCarrying2(n) {
         return cntChart[n];
     }
 }
+
+
+
+// 백준 2606번 바이러스 [https://www.acmicpc.net/problem/2606 ]
+// DFS 연습용으로 혼자서 풀어본 문제
+// 많이 헤맸다 ^^....1시간 걸려서 해결
+// 초등부 문제인데...ㅠㅠ.... 그래도 여튼 답은 나와서 다행이었다...
+// 인접배열의 사이즈는 (컴퓨터수+1)(컴퓨터수+1)만큼인데
+// visited 배열의 사이즈는 컴퓨터수만큼이라서 인덱스를 1씩 빼서 계산해야하는데 이게 좀 헷갈렸다.
+// 그리고 dfs 함수를 밖으로 빼놓고, numOfInfected를 매개변수로 전달시키면서 감염될 때마다 1씩 올렸는데
+// 정작 getNumOfInfected에서 리턴하면 영향을 안 받고 0을 리턴해서 애먹었다.
+// 아직도 이유는 왜인지 모르겠다 ㅠㅠ... 누가 내 질문 좀 답해줘.....
+
+function getNumOfInfected(numOfComs, numOfNetworks, pairs) {
+
+    // 인접 배열을 이용해서 푼다
+    let adjacentArr = new Array(numOfComs+1);
+
+    // 감연된 컴퓨터의 수
+    let numOfInfected = 0;
+    // 방문여부를 기록
+    let visited = new Array(numOfComs).fill(false);
+
+    for(let i=0; i<adjacentArr.length; i++) {
+        adjacentArr[i] = new Array(numOfComs+1);
+    }
+
+    for(let i=0; i<numOfNetworks; i++) {
+        let unitFirst = Number(pairs[i].substring(0, 1));
+        let unitSecond = Number(pairs[i].substring(2));
+
+        adjacentArr[unitFirst][unitSecond] = 1;
+        adjacentArr[unitSecond][unitFirst] = 1;
+    }
+
+    dfs(1, visited, adjacentArr, numOfInfected);
+
+    function dfs(index, visited, adjacentArr){
+        console.log(numOfInfected);
+        visited[index-1] = true;
+        for(let i=1; i<adjacentArr.length; i++) {
+            if(adjacentArr[index][i] === 1 && !visited[i-1]) {
+                
+                numOfInfected += 1;
+                console.log("루프 안에서 감염컴퓨터 수 : "+numOfInfected);
+    
+                visited[i-1] = true;
+
+                dfs(i, visited, adjacentArr);
+            }
+        }    
+    }
+    return numOfInfected;
+}
+
+
+
+let numOfInfected = getNumOfInfected(7, 6, ["1 2", "2 3", "1 5", "5 2", "5 6", "4 7"]);
+console.log(numOfInfected);
+
+
+numOfInfected = getNumOfInfected(8, 6, ["1 2", "2 4", "1 8", "4 5", "5 7", "3 6"]);
+console.log(numOfInfected);
