@@ -237,6 +237,84 @@ class Main {
     }
 }
 
+// 백준 알고리즘 2178번
+// 미로탐색 (https://www.acmicpc.net/problem/2178)
+// 저번 주 코테 숙제였으나 뒤늦게... 해봤다.
+// 얼추 본 기억에 의존해서 풀어보려고 했으나 역시나 틀렸다.
+// BFS보다 DFS를 더 많이 풀어봤는데, 미로탐색은 다들 BFS를 이용해 풀었다.
+// 최단 거리를 구하는 건 DFS보다 BFS가 더 적합하단 글을 읽고 납득이 갔다.
+// BFS를 이용해서 풀려면 Queue를 이용해야하는데, 남의 답을 보고 나니 왜 그런지 알 것 같다.
+// 앞으로 좀 더 미로 관련 문제를 풀어봐야겠다.
+
+class Main {
+        static int rows;
+        static int cols;
+        static int[][] maze;
+        static boolean[][] visited;
+        static int cnt = 0;
+        static int[] x = {0, 1, 0, -1};
+        static int[] y = {-1, 0, 1, 0};
+
+    public static void main(String[ ] args) {
+    
+        Scanner sc = new Scanner(System.in);
+        
+        // 미로 크기 받아오기 
+        rows = sc.nextInt();
+        cols = sc.nextInt();
+        maze = new int[rows][cols];
+        visited = new boolean[rows][cols];
+        
+        // 미로 만들기
+        for(int i=0; i<rows; i++) {
+            String input = sc.next();
+            
+            for(int j=0; j<cols; j++) {
+                maze[i][j] = (int) input.charAt(j) - 48;
+            }
+        }
+        
+        move(0,0);    
+        
+        System.out.print(maze[rows-1][cols-1]);
+
+    }
+    
+    
+    public static void move(int currentX, int currentY){
+        Queue<Integer> xMove = new LinkedList<>();
+        Queue<Integer> yMove = new LinkedList<>();
+        
+        xMove.add(currentX);
+        yMove.add(currentY);
+        
+        while(!xMove.isEmpty() && !yMove.isEmpty()) {
+            currentX = xMove.poll();
+            currentY = yMove.poll();
+            visited[currentX][currentY] = true;
+            
+            for(int i=0; i<x.length; i++) {
+                int dirX = currentX + x[i];
+                int dirY = currentY + y[i];
+                
+                if(dirX >= 0 && dirY >= 0 && dirX < rows && dirY < cols) {
+                    
+                    if(maze[dirX][dirY] == 1 && !visited[dirX][dirY]) {
+                        xMove.add(dirX);
+                        yMove.add(dirY);
+                        visited[dirX][dirY] = true;
+                        maze[dirX][dirY] = maze[currentX][currentY] + 1;
+                    }
+                    
+                }
+                
+            }
+            
+        }
+    }
+}
+
+
 
 // 술래잡기 
 // 상아랑 같이 해결...
