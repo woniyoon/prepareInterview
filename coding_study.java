@@ -316,6 +316,98 @@ class Main {
 
 
 
+// 백준 알고리즘 1012번
+// 유기농 배추 (https://www.acmicpc.net/problem/1012)
+// 어렵다고 생각했는데, 결국엔 DFS가 끝날 때마다 카운트를 올리면 되는 거였다.
+// 그래도 푸는데 헤맸다..^^
+// 심지어 남의 해결법 보고 다시 했는데도 안 되서 뭐가 문제인지 보는데
+// 좌표값을 잘못 입력했었다 답답...
+
+class Main {
+    static int t,m,n,k;
+    static int[][] farm;
+    static int[] dx = {0, 1, 0, -1};
+    static int[] dy = {-1, 0, 1, 0};
+    static int cnt = 0;
+
+    public static void main(String[ ] args) {
+    
+        Scanner sc = new Scanner(System.in);
+        
+        t = sc.nextInt();
+        m = sc.nextInt();
+        n = sc.nextInt();
+        k = sc.nextInt();
+
+        farm = new int[m][n];
+        
+        for(int i=0; i<k; i++) {
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            farm[x][y] = 1;
+        }
+        
+        sc.close();
+        
+        for(int i=0; i<m; i++) {
+            for(int j=0; j<n; j++) {
+                
+                if(farm[i][j] == 1) {
+                    System.out.println(farm[i][j]);
+                    bfs(i, j);
+                    cnt++;
+                }
+                
+                
+            }
+        }
+        
+        
+        
+        System.out.println(cnt);
+    }
+    
+    public static void bfs(int dirX, int dirY) {
+        Queue<Integer> xMove = new LinkedList<>();
+        Queue<Integer> yMove = new LinkedList<>();
+        
+        xMove.add(dirX);
+        yMove.add(dirY);
+        
+        while(!xMove.isEmpty() && !yMove.isEmpty()) {
+            
+            int newX = xMove.poll();
+            int newY = yMove.poll();
+            
+            farm[newX][newY] = 0;
+
+            for(int i=0; i<dx.length; i++) {
+                
+                int xCoord = newX + dx[i];
+                int yCoord = newY + dy[i];
+                
+                if(xCoord >= 0 && yCoord >=0 && xCoord < m && yCoord < n) {
+                System.out.println("[ "  + xCoord +", "+ yCoord+" ]");
+                
+                    if(farm[xCoord][yCoord] == 1) {
+                        farm[xCoord][yCoord] = 0;
+                        xMove.add(xCoord);
+                        yMove.add(yCoord);
+                    } else {
+                        continue;
+                    }
+                    
+                } else {
+                    continue;
+                }     
+            }
+            
+        }
+    }
+}
+
+
+
 // 술래잡기 
 // 상아랑 같이 해결...
 // 시간은 오래 걸렸지만 여튼 작동이 됨
