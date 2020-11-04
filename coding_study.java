@@ -575,3 +575,52 @@ public class NHNQuiz2 {
 		
 	}
 }
+
+
+// 프로그래머스 
+// 코딩테스트 연습 [그래프]
+// 가장 먼 노드
+
+
+// 1. 실패한 코드
+// 예시 테스트 케이스는 통과했는데, 제출하면 다 틀린다 ㅠ_ㅠ
+
+class Solution {
+    int[][] chart;
+    boolean[] visited;
+    int cnt = 0;
+    
+    public int solution(int n, int[][] edge) {
+        int answer = 0;
+
+        chart = new int[n+1][n+1];
+        visited = new boolean[n+1];
+            
+        for(int i=0; i<edge.length; i++) {
+            int start = edge[i][0];
+            int end = edge[i][1];
+            
+            chart[start][end] = 1;
+        }    
+            
+        dfs(1, chart);
+    
+        return cnt;
+    }
+    
+    public void dfs(int start, int[][] edge){
+        
+        for(int i=2; i<chart[0].length; i++) {
+            if(!visited[i-1] && edge[start][i] == 1) {
+                visited[i-1] = true;
+                
+                dfs(i, edge);
+            } else if (!visited[i-1] && edge[start][i] == 0) {
+                visited[i-1] = true;
+                cnt++;
+            }
+            
+        }        
+        
+    }
+}
