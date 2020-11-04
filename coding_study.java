@@ -582,7 +582,7 @@ public class NHNQuiz2 {
 // 가장 먼 노드
 
 
-// 1. 실패한 코드
+// 실패한 코드 1
 // 예시 테스트 케이스는 통과했는데, 제출하면 다 틀린다 ㅠ_ㅠ
 
 class Solution {
@@ -624,3 +624,163 @@ class Solution {
         
     }
 }
+
+
+// 실패한 코드 2
+// 남의 글 보다가, 인접행렬 대신 인접리스트를 써야한다고 했으나...
+// 또 실패 ㅠ.... 오늘은 머리가 돌아가지 않는거 같으니 포기...
+
+//package practice_data_structures;
+//
+//import java.io.*;
+//import java.math.*;
+//import java.security.*;
+//import java.text.*;
+//import java.util.*;
+//import java.util.concurrent.*;
+//import java.util.regex.*;
+//
+//public class Solution {
+//
+//    // Complete the arrayManipulation function below.
+//    static long arrayManipulation(int n, int[][] queries) {
+//        long[] arr = new long[n];
+//        long max = 0;
+//      
+//        for(int i=0; i<queries.length; i++){
+//            for(int j=queries[i][0]; j<=queries[i][1]; j++){
+//                arr[j-1] += queries[i][2];
+//            }
+//        }
+//
+//        for (long item : arr) {
+//        	
+//            if (item > max) {
+//                max = item;
+//            }
+//        }
+//
+//        return max;
+//    }
+//
+//    private static final Scanner scanner = new Scanner(System.in);
+//
+//    public static void main(String[] args) throws IOException {
+//        //BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+//
+//        String[] nm = scanner.nextLine().split(" ");
+//
+//        int n = Integer.parseInt(nm[0]);
+//
+//        int m = Integer.parseInt(nm[1]);
+//
+//        int[][] queries = new int[m][3];
+//
+//        for (int i = 0; i < m; i++) {
+//            String[] queriesRowItems = scanner.nextLine().split(" ");
+//            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+//
+//            for (int j = 0; j < 3; j++) {
+//                int queriesItem = Integer.parseInt(queriesRowItems[j]);
+//                queries[i][j] = queriesItem;
+//            }
+//        }
+//        
+//
+//        long result = arrayManipulation(n, queries);
+//
+//       // bufferedWriter.write(String.valueOf(result));
+//        //bufferedWriter.newLine();
+//
+////        bufferedWriter.close();
+//
+//        System.out.println(result);
+//        scanner.close();
+//    }
+//}
+
+class Node {
+    int val;
+    LinkedList<Node> next;
+    
+    public Node(int val) {
+        this.val = val;
+        next = new LinkedList<>();
+    }
+}
+
+class Solution {
+    LinkedList<Node> adjacentList;
+    boolean[] visited;
+    int cnt = 0;
+    
+    public int solution(int n, int[][] edge) {
+        int answer = 0;
+
+        adjacentList = new LinkedList<>();
+        visited = new boolean[n+1];
+            
+        for(int i=0; i<n; i++) {
+            Node node = new Node(i+1);
+            adjacentList.add(node);
+        }    
+            
+        for(int i=0; i<edge.length; i++) {
+            int start = edge[i][0];
+            int end = edge[i][1];
+            
+//            if(adjacentList.get(start-1).next == null) {
+//            	System.out.println("초기화 됨 ");
+//            	adjacentList.get(start-1).next = new LinkedList<Node>();
+//            }
+//            
+//            if(adjacentList.get(end-1).next == null) {
+//            	adjacentList.get(start-1).next = new LinkedList<Node>();
+//            }
+            
+            adjacentList.get(start-1).next.add(adjacentList.get(end-1));
+            adjacentList.get(end-1).next.add(adjacentList.get(start-1));
+        }    
+            
+//        visited[0] = true;
+        dfs(adjacentList.get(0));
+    
+        return cnt;
+    }
+    
+    public void dfs(Node vertex){
+        
+        visited[vertex.val-1] = true;
+        System.out.println("next의 사이즈 : " + vertex.next.size());
+
+        for(Node n : vertex.next) {
+            System.out.println("현재 정점 값 :  " + n.val);
+            
+            if(!visited[n.val-1] && n.next.size() > 0) {
+                dfs(n);
+            } else if(n.next.size() <= 2) {
+                System.out.println(n.val);
+                System.out.println("자식이 없네...");
+                cnt++;
+            } else {
+                continue;
+            } 
+        }
+
+        
+    }
+    
+    // public static void main(String[] args) {
+        
+    //     Solution s = new Solution();
+    //     int[][] test = {{3, 6}, {4, 3}, {3, 2}, {1, 3}, {1, 2}, {2, 4}, {5, 2}};
+        
+        
+    //     int answer = s.solution(6, test);
+    //     System.out.println(answer);
+    // }
+    
+    
+}
+
+
