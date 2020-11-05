@@ -867,3 +867,94 @@ public class Virus {
 		
 	}
 }
+
+
+// 백준 1012번
+// 유기농배추 [https://www.acmicpc.net/problem/1012]
+// 다시 풀어봄!!!! 근데 틀었다!!!!!!!
+
+
+public class OrganicCabbage {
+	
+	static int numOfCases;
+	static int m, n, k, numOfWorms;
+	static int[][] farm;
+	static int[] dx = {0, 1, 0, -1};
+	static int[] dy = {-1, 0, 1, 0};
+	
+	public static void main(String[] args) {
+	
+		Scanner sc = new Scanner(System.in);
+		
+		numOfCases = sc.nextInt();
+		
+		for(int i=0; i<numOfCases; i++) {
+			
+			m = sc.nextInt();
+			n = sc.nextInt();
+			k = sc.nextInt();
+			numOfWorms = 0;
+			
+			farm = new int[m][n];
+			
+			for(int j=0; j<k; j++) {
+				int row = sc.nextInt();
+				int col = sc.nextInt();
+				
+				farm[row][col] = 1;
+			}
+			
+			
+			
+			for(int k=0; k<n; k++) {
+				for(int l=0; l<m; l++) {
+					System.out.print("["+l+", " +k +"]  ");
+					if(farm[l][k] == 1) {
+						countWorms(l,k);
+						numOfWorms++;
+					}
+				}
+				System.out.println(" ");
+			}
+			
+			System.out.println(numOfWorms);
+		}
+		
+		sc.close();
+	}
+	
+	public static void countWorms(int x, int y) {
+		
+		farm[x][y] = 0;
+		Queue<Integer> xDirection = new LinkedList<>();
+		Queue<Integer> yDirection = new LinkedList<>();
+		//System.out.println("* 들어온 위치 : " +  "[" + x+","+y+"]");
+		
+		xDirection.add(x);
+		yDirection.add(y);
+		
+		while(!xDirection.isEmpty() && !yDirection.isEmpty()) {
+			
+			int xPos = xDirection.poll();
+			int yPos = yDirection.poll();
+			
+			for(int i=0; i<4; i++) {
+				int newX = xPos + dx[i];
+				int newY = yPos + dy[i];
+				
+				if(newX >= 0 && newY >=0 && newX < m && newY < n) {
+					
+					if(farm[newX][newY] == 1) {
+						xDirection.add(newX);
+						yDirection.add(newY);
+						farm[newX][newY] = 0;
+					} else {
+						continue;
+					}
+					
+				}				
+				
+			}
+		}
+	}
+}
