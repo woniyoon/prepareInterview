@@ -958,3 +958,66 @@ public class OrganicCabbage {
 		}
 	}
 }
+
+
+// 작물 영역 찾기!!!!
+
+public class Main {
+	static int[] dx = {0, 1, 0, -1};
+	static int[] dy = {-1, 0, 1, 0};
+	static int n;
+	static int[] numOfCrops = new int[3];
+	
+	public static class Coords {
+		int x;
+		int y;
+		
+		public Coords(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
+	}
+	
+	public static void main(String[] args) {
+		int[][] v = {{0,0,1,1},{1,1,1,1},{2,2,2,1},{0,0,0,2}};	
+		n = v.length;
+		
+		for(int row=0; row<n; row++) {
+			for(int col=0; col<n; col++) {
+				if(v[row][col] != -1) {
+					int type = v[row][col];
+					v[row][col] = -1;
+					search(type, row, col, v);
+					numOfCrops[type]++;
+				}
+			}
+		}
+		
+		System.out.println(numOfCrops[0]);
+		System.out.println(numOfCrops[1]);
+		System.out.println(numOfCrops[2]);
+	
+	}
+	
+	public static void search(int type, int row, int col, int[][] v) {
+		Queue<Coords> moves = new LinkedList<>();
+		
+		moves.add(new Coords(row, col));
+		
+		while(!moves.isEmpty()) {
+			Coords move = moves.poll();
+			for(int i=0; i<4; i++) {
+				int xPos = move.x + dx[i];
+				int yPos = move.y + dy[i];
+				
+				if(xPos >= 0 && yPos >=0 && xPos < n && yPos < n) {
+					if(type == v[xPos][yPos]) {
+						v[xPos][yPos] = -1;
+						moves.add(new Coords(xPos, yPos));
+					}
+				}
+			}
+		}
+	}
+}
+
