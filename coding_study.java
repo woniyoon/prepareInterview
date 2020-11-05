@@ -784,3 +784,86 @@ class Solution {
 }
 
 
+
+// 백준 2606번 바이러스 [https://www.acmicpc.net/problem/2606 ]
+// 자바스크립트 && 인접행렬을 이용해 풀었던 문제를 
+// 자바 && 리스트를 이용해 풀었다!!!!
+
+public class Virus {
+	
+	static int numOfComs;
+	static int numOfPairs;
+	static Com[] coms;
+	static int cnt = -1;
+	
+	public static class Com {
+		int val;
+		boolean visited;
+		LinkedList<Com> connected;
+		
+		public Com(int val) {
+			this.val = val;
+			visited = false;
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		numOfComs = sc.nextInt();
+		coms = new Com[numOfComs];
+		numOfPairs = sc.nextInt();
+		
+		for(int i=0; i<numOfComs; i++) {
+			coms[i] = new Com(i+1);
+		}
+		
+		for(int i=0; i<numOfPairs; i++) {
+			int firstComNo = sc.nextInt();
+			int secondComNo = sc.nextInt();
+			
+			Com firstCom = coms[firstComNo-1];
+			Com secondCom = coms[secondComNo-1];
+			
+			if(firstCom.connected == null) {
+				firstCom.connected = new LinkedList<Com>();
+			}
+
+			if(secondCom.connected == null) {
+				secondCom.connected = new LinkedList<Com>();
+			}
+			
+			firstCom.connected.add(secondCom);
+			secondCom.connected.add(firstCom);
+		}
+		
+		
+		checkInfected(coms[0]);
+		
+		
+		for(int i=0; i<coms.length; i++) {
+			if(coms[i].visited) {
+				cnt++;
+			}
+		}
+		
+		System.out.println(cnt);
+		
+		sc.close();
+		
+	}
+	
+	
+	public static void checkInfected(Com com) {
+		
+		com.visited = true;
+		
+		for(Com unit : com.connected) {
+			if(!unit.visited) {
+				checkInfected(unit);				
+			}
+		}
+		
+	}
+}
