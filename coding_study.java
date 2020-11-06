@@ -1021,3 +1021,46 @@ public class Main {
 	}
 }
 
+
+// 상아가 가져온 복호화 문제 
+// 이론은 어렵지 않은데....
+// 하는데 엄청 애썼다... 그런데 주어진 text보다 rotation이 크면 문자열 회전이 제대로 되지 않는다 ㅠ_ㅠ
+// 이 부분을 다시 연구해보아야겠다....
+
+public class Main {
+	public static void main(String[] args) {
+		String text = "qyyigoptvfb";
+		String key = "abcdefghijk";
+		char[] keyChart = new char[26];
+		int rotation = 3;
+		int strLength = text.length();
+				
+		for(int i=0; i<keyChart.length; i++) {
+			keyChart[i] = (char) ('a'+i);
+		}
+		
+		String result = rotation > 0 ? leftrotate(text, rotation) : rightrotate(text, Math.abs(rotation));
+	
+		char[] charText = result.toCharArray();
+		char[] keyText = key.toCharArray();
+		
+		System.out.println("result : " + result);
+		
+		for(int i=0; i<strLength; i++) {
+			int index = charText[i] - keyText[i] > 0 ? charText[i] - keyText[i] : charText[i] - keyText[i] + 26 ;
+			System.out.print(keyChart[index-1]);
+		}
+		
+	}
+	
+	
+	static String leftrotate(String str, int d) {
+            String ans = str.substring(d) + str.substring(0, d);
+            return ans;
+    }
+
+    // function that rotates s towards right by d 
+    static String rightrotate(String str, int d) {
+            return leftrotate(str, str.length() - d);
+    }
+}
