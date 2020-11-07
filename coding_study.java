@@ -1064,3 +1064,77 @@ public class Main {
             return leftrotate(str, str.length() - d);
     }
 }
+
+
+
+// 시험 부정행위자 찾아내기
+// 알듯 말듯 모르겠다 ㅠㅠㅠ....
+
+
+public class Main {
+    public static class Examinee {
+		String no;
+		HashMap<Integer, Integer> scores = new HashMap<>();
+		
+		
+		public Examinee(String no) {
+			this.no = no;
+		}
+	}
+	
+	public static void main(String[] args) {
+	
+		
+		
+		String[] logs = {"0001 3 95", "0001 5 90", "0001 5 100", "0002 3 95", "0001 7 80", "0001 8 80",
+                        "0001 10 90", "0002 10 90", "0002 7 80", "0002 8 80", "0002 5 100", "0003 99 90"};
+		HashMap<String, Examinee> examinees = new HashMap<>();
+		Set<String> examineesList = new HashSet<>();
+//		ArrayList<Examinee> examinees = new ArrayList<>();
+		
+		Comparator<String> comparator =  new Comparator<String>() {
+			@Override
+			public int compare(String log1, String log2) {
+				int quizNo1 = Integer.parseInt(log1.substring(5, 7).trim());
+				int quizNo2 = Integer.parseInt(log2.substring(5, 7).trim());
+                int point1 = Integer.parseInt(log1.substring(8));
+                int point2 = Integer.parseInt(log2.substring(8));
+				
+                if(quizNo1 == quizNo2) {
+                    return point1 - point2 > 0 ? 1 : -1;
+                }
+                
+                return quizNo1 - quizNo2 > 0 ? 1 : -1; 
+            }
+		};
+		
+		Arrays.sort(logs, comparator);
+
+		for(int i=0; i<logs.length-1; i++) {
+			String key = logs[i].substring(0, 4);
+			int quizNo = Integer.parseInt(logs[i].substring(5, 7).trim());
+			int point = Integer.parseInt(logs[i].substring(8));
+		}
+		
+		
+		for(String log : logs) {
+			System.out.println(log);
+		
+			String key = log.substring(0, 4);
+			int quizNo = Integer.parseInt(log.substring(5, 7).trim());
+			int point = Integer.parseInt(log.substring(8));
+			
+			examineesList.add(key);
+			if(examinees.containsKey(key)) {
+				examinees.get(key).scores.put(quizNo, point);
+			} else {
+				Examinee examinee = new Examinee(key);
+				examinee.scores.put(quizNo, point);
+				
+				examinees.put(key, examinee);
+			}
+			
+		}
+
+	}
+}
