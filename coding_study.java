@@ -1142,3 +1142,101 @@ public class Main {
 
 	}
 }
+
+
+
+// 버튼 누르기 게임
+// 상아랑 같이 풀어본 문제
+// 완전탐색을 열심히 공부한 결과, 해결!!
+
+public class NumberPadGame {
+
+	static int[] dx = {0, 1, 0, -1};
+	static int[] dy = {-1, 0, 1, 0};
+	static int n = 4, answer = 0, enter = 1;
+	static int currentX = 0, currentY = 0;
+	static int[][] visited = new int[n][n];
+	
+	public static class Button implements Comparable<Button> {
+		int number, x, y;
+		
+		public Button(int number, int y, int x) {
+			this.number = number;
+			this.x = x;
+			this.y = y;
+		}
+
+		@Override
+		public int compareTo(Button o) {
+			return this.number - o.number > 0 ? 1 : -1;
+		}
+	}
+	
+	public static void main(String[] args) {
+		
+//		int[][] board = {{3,5,6}, {9,2,7}, {4,1,8}};
+//		int[][] board = {{2,3}, {4,1}};
+		int[][] board = {{11, 9, 8, 12}, {2, 15, 4, 14}, {1, 10, 16, 3}, {13, 7, 5, 6}};
+		Button[] numPad = new Button[(int) Math.pow(n, 2)];
+		int index = 0;
+		
+		for(int i=0; i<board.length; i++) {
+			for(int j=0; j<board[0].length; j++) {
+				numPad[index++] = new Button(board[i][j], i, j);
+			}
+		}
+
+		Arrays.sort(numPad);
+		
+		
+		for(Button b : numPad) {
+			search(b);
+			answer += enter;
+		}
+		
+		System.out.println(answer);
+	}
+	
+	public static void search(Button btn) {
+		Queue<Integer> xMove = new LinkedList<>();
+		Queue<Integer> yMove = new LinkedList<>();
+
+		xMove.add(currentX);
+		yMove.add(currentY);
+		
+		while(!xMove.isEmpty() && !yMove.isEmpty()) {
+			int x = xMove.poll();
+			int y = yMove.poll();
+			
+			System.out.println("x : " + x);
+			System.out.println("y : " + y);
+			
+			for(int i=0; i<4; i++) {
+				int xPos = (x+dx[i]+n) % n;
+				int yPos = (y+dy[i]+n) % n;
+
+				System.out.println("[" + yPos + "," + xPos +"]");
+				visited[xPos][yPos] = visited[x][y] + 1;
+				
+				xMove.add(xPos);
+				yMove.add(yPos);
+				
+				if(xPos == btn.x && yPos == btn.y) {
+					System.out.println("찾았다!!!");
+					answer += visited[xPos][yPos];
+					currentX = xPos;
+					currentY = yPos;
+					visited = new int[n][n];
+					return;
+				}
+				
+				if(visited[xPos][yPos] != 0) {
+					continue;
+				}
+
+			}
+			
+		}
+	}
+	
+}
