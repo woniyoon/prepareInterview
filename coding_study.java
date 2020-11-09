@@ -1034,7 +1034,11 @@ public class Main {
 		char[] keyChart = new char[26];
 		int rotation = 3;
 		int strLength = text.length();
-				
+						
+		if (rotation > strLength) {
+			rotation %= strLength;
+		}
+
 		for(int i=0; i<keyChart.length; i++) {
 			keyChart[i] = (char) ('a'+i);
 		}
