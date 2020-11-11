@@ -1026,6 +1026,7 @@ public class Main {
 // 이론은 어렵지 않은데....
 // 하는데 엄청 애썼다... 그런데 주어진 text보다 rotation이 크면 문자열 회전이 제대로 되지 않는다 ㅠ_ㅠ
 // 이 부분을 다시 연구해보아야겠다....
+// 2020.11.09 - rotation이 text보다 커도 문제없이 문자열 회전이 된다!!!
 
 public class Main {
 	public static void main(String[] args) {
@@ -1240,3 +1241,6 @@ public class NumberPadGame {
 	}
 	
 }
+
+
+
