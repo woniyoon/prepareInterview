@@ -1243,4 +1243,106 @@ public class NumberPadGame {
 }
 
 
+// 시험 부정행위자 찾아내기 퀴즈
+// 어찌저찌 풀긴 했지만, 타임아웃이 확실하다...
+// 더 좋은 방법이 궁금하다...
 
+public static class Examinee implements Comparable<Examinee>{
+	String no;
+	HashMap<Integer, Integer> scores = new HashMap<>();
+	
+	
+	public Examinee(String no) {
+		this.no = no;
+	}
+
+
+	@Override
+	public int compareTo(Examinee o) {
+		return Integer.parseInt(this.no) - Integer.parseInt(o.no) > 0 ? 1 : -1;
+	}
+}
+
+public static void main(String[] args) {
+
+	String[] logs = {"0001 3 95", "0001 5 90", "0001 5 100", "0002 3 95", "0001 7 80", "0001 8 80",
+					"0001 10 90", "0002 10 90", "0002 7 80", "0002 8 80", "0002 5 100", "0003 99 90"};
+//		String[] logs = {"1901 1 100", "1901 2 100", "1901 4 100", "1901 7 100", "1901 8 100", "1902 2 100", "1902 1 100", "1902 7 100", "1902 4 100", "1902 8 100", "1903 8 100", "1903 7 100", "1903 4 100", "1903 2 100", "1903 1 100", "2001 1 100", "2001 2 100", "2001 4 100", "2001 7 95", "2001 9 100", "2002 1 95", "2002 2 100", "2002 4 100", "2002 7 100", "2002 9 100"};
+//		String[] logs = {"1901 10 50", "1909 10 50"} ;
+	HashMap<String, Examinee> exMap = new HashMap<>();
+	ArrayList<Examinee> exList = new ArrayList<>();
+	HashMap<String, String> finalList = new HashMap<>();
+	ArrayList<String> answer = new ArrayList<>();
+	
+	for(String log : logs) {
+		String key = log.substring(0, 4);
+		int quizNo = Integer.parseInt(log.substring(5, 7).trim());
+		int point = Integer.parseInt(log.substring(7).trim());
+		
+		
+		if(exMap.containsKey(key)) {
+			exMap.get(key).scores.put(quizNo, point);
+		} else {
+			Examinee examinee = new Examinee(key);
+			examinee.scores.put(quizNo, point);
+			
+			exMap.put(key, examinee);
+		}
+		
+	}
+
+	
+	exMap.forEach((key, value)->{
+		exList.add(value);
+	});
+
+	
+	List<Examinee> over5Quiz = exList.stream().filter((examinee)->{
+		System.out.println(examinee.no + "의 사이즈 : " + examinee.scores.size());
+		if(examinee.scores.size() < 5) {
+			return false;
+		}
+		return examinee.scores.size() >= 5;
+	}).sorted().collect(Collectors.<Examinee>toList());
+	
+	System.out.println(over5Quiz.size());
+	
+	for(int i=0; i<over5Quiz.size(); i++) {
+		Examinee examinee1 = over5Quiz.get(i);
+		Examinee examinee2 = over5Quiz.get((i+1+over5Quiz.size()) % over5Quiz.size());
+		
+		if(examinee1.scores.toString().equals(examinee2.scores.toString())) {
+			
+			if(!finalList.containsKey(examinee1.no)) {
+				answer.add(examinee1.no);
+			}
+			if(!finalList.containsKey(examinee2.no)) {
+				answer.add(examinee2.no);
+			}
+			
+			finalList.put(examinee1.no, examinee1.no);
+			finalList.put(examinee2.no ,examinee2.no);
+		} 
+		
+	}
+	
+	answer.sort(new Comparator<String>() {
+
+		@Override
+		public int compare(String o1, String o2) {
+			int val1 = Integer.parseInt(o1);
+			int val2 = Integer.parseInt(o2);
+			return val1-val2 > 0 ? 1 : -1;
+		}
+		
+	});
+	
+	if(answer.size() == 0) {
+		System.out.println("none");
+	} else {
+		for(String s : answer) {
+			System.out.print(s + " ");
+		}
+	}
+	
+}
