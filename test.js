@@ -1,5 +1,5 @@
-// class Vertex {
 //     constructor(label, value) {
+	// class Vertex {
 //         this.label = label;
 //         this.value = value;
 //         this.nodeArr = [];
@@ -303,6 +303,83 @@ function getRepeatedPermutation(numArr, n, m) {
 }
 
 
-nAndM(3, 1);
-nAndM(4, 2);
-nAndM(3, 3);
+// nAndM(3, 1);
+// nAndM(4, 2);
+// nAndM(3, 3);
+
+const xMove = [0, 1, 0, -1];
+const yMove = [-1, 0, 1, 0];
+const len = xMove.length;
+
+function findExit(row, col, input) {
+	let maze = [];
+
+	// 미로 만들기
+	for (let i=0; i<row; i++) {
+		for (let j=0; j<col; j++) {
+			
+			if(maze[i] === undefined) {
+				maze[i] = new Array(col);
+			} 
+			
+			maze[i][j] = Number(input[i].charAt(j));
+		}
+	}
+	
+	// 미로 탐색
+	searchMaze(0, 0, maze);
+	console.table(maze);
+	console.log(`지나가야하는 최소 횟수 : ${maze[row-1][col-1]}`);
+
+}
+
+function searchMaze(currentX, currentY, maze) {
+	let moves = [];
+	
+	for(let i=0; i<len; i++) {
+		let xPos = currentX + xMove[i];
+		let yPos = currentY + yMove[i];
+		
+		if (xPos >= 0 && xPos < maze.length && yPos >= 0 && yPos < maze[0].length) {	// 이동가능한 경우가 미로의 범위 내에 있는지 확인
+
+			if (maze[xPos][yPos] === 1) {	// 지나갈 수 있는 길인지 확인
+				maze[xPos][yPos] = maze[currentX][currentY] + 1;
+
+				if (xPos === maze.length-1 && yPos === maze[0].length-1) {	// 목적지 도착 여부 확인
+					return;
+				}
+				searchMaze(xPos, yPos, maze);
+			}
+			
+		}
+	}
+
+}
+
+
+const sample = [
+	"101111",
+	"101010",
+	"101011",
+	"111011"
+]
+
+
+const sample2 = [
+	"1011101110111011101110111",
+	"1110111011101110111011101"
+];
+
+const sample3 = [
+	"1011111",
+	"1110001",
+	"1000001",
+	"1000001",
+	"1000001",
+	"1000001",
+	"1111111"
+];
+
+findExit(4, 6, sample);
+findExit(2, 25, sample2);
+findExit(7, 7, sample3);
