@@ -13,7 +13,7 @@ class DoublyLinkedList {
     this.length = 0;
   }
 
-  // 값 넣기
+  // 꼬리에 노드 새로 넣기
   push(val) {
     let newNode = new Node(val);
     
@@ -34,12 +34,40 @@ class DoublyLinkedList {
     } else {
       this.head = newNode;
       this.tail = newNode;
-      this.head.next = this.tail;
+      // this.head와 this.tail이 같은 노드를 가리키고 있기 때문에 2번째 꼬리 노드가 들어오면
+      // this.tail을 새로운 노드로 향하게 만들어주는 동시에 this.head.next가 새로운 노드를 가리키기 때문에
+      // 별도로 head의 next값을 지정해줄 필요가 없다.
+      // this.head.next = this.tail;
     }
 
     this.length++;
     return this;
   }
+
+
+  // 꼬리 노드 제거
+  pop() {
+    if (!this.head) return undefined;
+
+    // nodeToReturn을 선언만 해놓고 조건에 따라서 값 할당을 했으나,
+    // length가 1인 경우 head와 tail 모두 동일함
+    // 때문에 nodeToReturn을 this.tail로 초기화해도 무방함
+    let nodeToReturn = this.tail;
+
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      this.tail = nodeToReturn.prev;
+      this.tail.next = null;
+      nodeToReturn.prev = null;
+    }
+    
+    this.length--;
+
+    return nodeToReturn;
+  }
+
 
   // 생성된 양방향연결리스트 내 노드 출력하기
   printDdl() {
@@ -59,8 +87,13 @@ ddl.push(1);
 // ddl.push(4);
 // ddl.push(5);
 // ddl.push(6);
-// ddl.push(8);
+ddl.push(8);
 
 ddl.push(100);
+
+ddl.pop();
+ddl.pop();
+ddl.pop();
+
 
 ddl.printDdl();
