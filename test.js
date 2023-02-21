@@ -383,3 +383,4 @@ const sample3 = [
 findExit(4, 6, sample);
 findExit(2, 25, sample2);
 findExit(7, 7, sample3);
+
