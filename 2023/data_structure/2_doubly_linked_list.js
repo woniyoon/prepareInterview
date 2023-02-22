@@ -68,6 +68,26 @@ class DoublyLinkedList {
     return nodeToReturn;
   }
 
+  // 헤드 노드 제거
+  shift() {
+    if (this.length === 0) return undefined;
+
+    let nodeToReturn = this.head;
+
+    // 노드의 개수에 따라 분기처리 필요
+    // 노드가 1개만 있을 때, 이전 헤드를 현 헤드로 할당할 필요가 없음
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      this.head = nodeToReturn.next;
+      this.head.prev = null;
+      nodeToReturn.next = null;
+    }
+
+    this.length--;
+    return nodeToReturn;
+  }
 
   // 생성된 양방향연결리스트 내 노드 출력하기
   printDdl() {
