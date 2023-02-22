@@ -89,6 +89,24 @@ class DoublyLinkedList {
     return nodeToReturn;
   }
 
+
+  // 헤드에 노드 새로 넣기
+  unshift(val) {
+    if (this.length === 0) {
+      this.push(val);
+    } else {
+      let newNode = new Node(val);
+      
+      newNode.next = this.head;
+      this.head.prev = newNode;
+      this.head = newNode;      
+    }
+
+    this.length++;
+    return this;
+  }
+
+
   // 생성된 양방향연결리스트 내 노드 출력하기
   printDdl() {
     let startNode = this.head;
