@@ -136,10 +136,47 @@ class DoublyLinkedList {
       node.val = val;
       return true;
     }
-    
+
     return false;
   }
 
+  insert(idx, val) {
+    if (idx < 0 || idx >= this.length) return false;
+    // unshift와 push 메소드는 this를 리턴하나, 통일성?을 주기 위해서 double negation을 이용해 boolean값으로 변경
+    if (idx === 0) return !!this.unshift(val);
+    if (idx === this.length-1) return !!this.push(val);
+    
+    let newNode = new Node(val);
+    let prevNode = this.get(idx-1);
+    // newNode와 prevNode 변수만 만들었었는데, 가독성을 위해서 nextNode 변수도 만드는게 좋을 것 같다
+    let nextNode = prevNode.next;
+    nextNode.prev = newNode;
+    newNode.next = nextNode;
+    prevNode.next = newNode;
+    newNode.prev = prevNode;
+
+    this.length++;
+
+    return true;
+  }
+
+  remove(idx) {
+    if (idx < 0 || idx >= this.length) return false;
+    if (idx === 0) return !!this.shift();
+    if (idx === this.length-1) return !!this.pop(); 
+
+    let prevNode = this.get(idx);
+    let nodeToDelete = prevNode.next;
+    let nextNode = nodeToDelete.next;
+
+    nodeToDelete.prev = null;
+    nodeToDelete.next = null;
+    prevNode.next = nextNode;
+    nextNode.prev = prevNode;
+
+    this.length--;
+    return true;
+  }
 
   // 생성된 양방향연결리스트 내 노드 출력하기
   printDdl() {
