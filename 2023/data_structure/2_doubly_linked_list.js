@@ -106,6 +106,40 @@ class DoublyLinkedList {
     return this;
   }
 
+  
+  // n번째 노드 찾아 리턴하기
+  get(idx) {
+    if (idx < 0 || idx >= this.length) return null;
+
+    let isForward = idx <= this.length/2;
+    let target = isForward ? this.head : this.tail;
+
+    if (isForward) {
+      for (let i=0; i<idx; i++) {
+        target = this.head.next;
+      }
+    } else {
+      for (let i=0; i<(this.length-1)-idx; i++) {
+        target = this.tail.prev;
+      }
+    }
+
+    return target;
+  }
+
+
+  // n번째 노드의 값을 업데이트
+  set(idx, val) {
+    let node = this.get(idx);
+
+    if (node) {
+      node.val = val;
+      return true;
+    }
+    
+    return false;
+  }
+
 
   // 생성된 양방향연결리스트 내 노드 출력하기
   printDdl() {
