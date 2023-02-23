@@ -6,6 +6,12 @@ class Node {
   }
 }
 
+// Time Complexity
+// insertion: O(1)
+// deletion: O(1)
+// search: O(N)
+// access: O(N)
+
 class DoublyLinkedList {
   constructor() {
     this.head = null;
