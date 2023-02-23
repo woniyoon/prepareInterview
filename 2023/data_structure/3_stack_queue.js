@@ -54,6 +54,55 @@ class Stack {
       firstNode.next = null;
       
       this.length--;
-      return firstNode;
+      return firstNode.val;
+  }
+}
+
+
+
+// 큐
+// FIFO 자료구조
+
+// ex) 컴퓨터의 백그라운드 작업, 자료 업로드 및 다운로드, 프린터 작업, 프로세스 작업,
+//     더 복잡한 알고리즘과 자료구조를 구현할 때 필요
+// 스택과 동일하게 enqueue와 dequeue의 시간복잡도는 O(1)
+// search, access의 시간복잡도는 O(n)
+class Queue {
+  constructor() {
+    this.first = null;
+    this.last = null;
+    this.length = 0;
+  }
+
+  enqueue(val) {
+    let newNode = new Node(val);
+
+    if (this.length === 0) {
+      this.first = newNode;
+      this.last = newNode;
+    } else {
+      this.last.next = newNode;
+      this.last = newNode;      
+    }
+
+    return ++this.length;
+  }
+
+  dequeue() {
+    if (this.length === 0) return null;
+
+    let first = this.first;
+
+    // 이 과정을 생략해도 되는 줄 알았으나, 큐 안에 last값이 계속 존재하는 문제가 있음
+    // 꼭 last를 없애줘야한다.
+    if (this.first === this.last) {
+      this.last = null;
+    }
+
+    this.first = this.first.next;
+    first.next = null;
+
+    this.length--;
+    return first.val;
   }
 }
