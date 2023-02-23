@@ -5,6 +5,16 @@ class Node {
   }
 }
 
+// 스택 
+// LIFO 자료구조
+
+// 자바스크립트 빌트인 자료구조에는 스택이 없지만
+// 배열에는 push/pop, unshift,shift와 같은 메소드가 있기 때문에 스택처럼 사용할 수 있다.
+// 그러나 스택을 이해하기 위해, 스택을 구현하는 방법에는 여러가지 중에서 단방향연결리스트를 이용해 직접 메소드를 작성한다.
+// 단방향연결리스트에도 똑같은 효과를 내는 push/pop 메소드가 있지만 시간복잡도이 O(n)이다.
+// 하지만 스택의 push/pop의 시간복잡도은 O(1)이다.
+// search: O(n), access: O(n)
+
 class Stack {
   constructor() {
       this.first = null;
