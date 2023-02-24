@@ -6,7 +6,12 @@
 // Binary Trees: 자식 노드를 최대 2개까지 가질 수 있음
 // Binary Search Trees: Binary Trees의 한 예로 데이터가 정렬돼있고 순회가 쉬움.
 //                      부모노드를 기준으로 그보다 작은 노드들은 왼쪽으로, 더 큰 노드들은 오른쪽으로 내려감
-
+//
+// 시간복잡도
+// insertion / search
+// best: O(logN)
+// avg: O(logN)
+// worst: O(N)  (한쪽으로 치우쳐진 Binary Tree라면 단방향연결리스트처럼 모든 노드들을 체크해야함)
 
 class Node {
   constructor(val) {
