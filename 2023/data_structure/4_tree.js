@@ -75,6 +75,24 @@ class BinarySearchTree {
     }
     return undefined;
   }
+
+  // 선형 자료구조와 달리 트리를 순회하는 방법은 여러가지
+  // ex) BFS(너비우선탐색), DFS(깊이우선탐색)
+  BFS() {
+    const queue = [this.root];
+    const visited = [];
+
+    while (queue.length > 0) {
+      let node = queue.shift();
+
+      visited.push(node);
+      
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    }
+
+    return visited.map(item => item.val);
+  }
 }
 
 
@@ -84,9 +102,11 @@ tree.insert(15);
 tree.insert(5);
 tree.insert(9);
 tree.insert(200);
+tree.insert(50);
+tree.insert(20);
 
-
-console.log(tree.find(5));    // Node
-console.log(tree.find(200));  // Node 
-console.log(tree.find(20));   // undefined
+console.log(tree.BFS());
+// console.log(tree.find(5));    // Node
+// console.log(tree.find(200));  // Node 
+// console.log(tree.find(20));   // undefined
 
