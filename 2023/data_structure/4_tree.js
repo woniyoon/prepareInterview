@@ -109,6 +109,20 @@ class BinarySearchTree {
     traverse(this.root);
     return data;
   }
+
+  // DFS 후위순회
+  DFSPostOrder() {
+    const data = [];
+
+    function traverse(node) {
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right);
+      data.push(node);
+    }
+
+    traverse(this.root);
+    return data;
+  }
 }
 
 
@@ -123,6 +137,7 @@ tree.insert(20);
 
 console.log(tree.BFS().map(item => item.val));
 console.log(tree.DFSPreOrder().map(item => item.val));
+console.log(tree.DFSPostOrder().map(item => item.val));
 // console.log(tree.find(5));    // Node
 // console.log(tree.find(200));  // Node 
 // console.log(tree.find(20));   // undefined
