@@ -91,21 +91,38 @@ class BinarySearchTree {
       if (node.right) queue.push(node.right);
     }
 
-    return visited.map(item => item.val);
+    return visited;
+  }
+
+  // DFS 전위순회
+  DFSPreOrder() {
+    const data = [];
+
+    function traverse(node) {
+      data.push(node);
+      // 재귀헬퍼함수를 이용해 왼쪽에 있는 노드를 전부 배열에 push하고
+      // 왼쪽에 더 이상 없을 때 콜스택에서 pop된 순서대로 오른쪽 노드들을 다시 배열에 push
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right);
+    }
+
+    traverse(this.root);
+    return data;
   }
 }
 
 
 let tree = new BinarySearchTree();
 
+tree.insert(10);
+tree.insert(6);
 tree.insert(15);
-tree.insert(5);
-tree.insert(9);
-tree.insert(200);
-tree.insert(50);
+tree.insert(3);
+tree.insert(8);
 tree.insert(20);
 
-console.log(tree.BFS());
+console.log(tree.BFS().map(item => item.val));
+console.log(tree.DFSPreOrder().map(item => item.val));
 // console.log(tree.find(5));    // Node
 // console.log(tree.find(200));  // Node 
 // console.log(tree.find(20));   // undefined
