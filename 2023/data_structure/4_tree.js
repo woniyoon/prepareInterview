@@ -123,6 +123,20 @@ class BinarySearchTree {
     traverse(this.root);
     return data;
   }
+
+  // DFS 정위순회
+  DFSInOrder() {
+    const data = [];
+
+    function traverse(node) {
+      if (node.left) traverse(node.left);
+      data.push(node);
+      if (node.right) traverse(node.right);
+    }
+
+    traverse(this.root);
+    return data;
+  }
 }
 
 
@@ -135,10 +149,14 @@ tree.insert(3);
 tree.insert(8);
 tree.insert(20);
 
-console.log(tree.BFS().map(item => item.val));
-console.log(tree.DFSPreOrder().map(item => item.val));
-console.log(tree.DFSPostOrder().map(item => item.val));
-// console.log(tree.find(5));    // Node
-// console.log(tree.find(200));  // Node 
-// console.log(tree.find(20));   // undefined
+tree.BFS().map(item => item.val);           // [ 10, 6, 15, 3, 8, 20 ]
+tree.DFSPreOrder().map(item => item.val);   // [ 10, 6, 3, 8, 15, 20 ]
+tree.DFSPostOrder().map(item => item.val);  // [ 3, 8, 6, 20, 15, 10 ]
+tree.DFSInOrder().map(item => item.val);    // [ 3, 6, 8, 10, 15, 20 ]
 
+// BFS VS DFS
+// 모든 노드를 방문하는 점에서 시간복잡도는 동일 
+// 트리의 너비가 넓을수록
+//  - BFS 공간복잡도 > DFS 공간복잡도 (큐를 이용하기 때문에)
+// 트리가 깊을수록
+//  - BFS 공간복잡도 < DFS 공간복잡도
