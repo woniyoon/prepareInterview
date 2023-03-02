@@ -133,6 +133,43 @@ class HashTable {
 
     return undefined;
   }
+
+
+  keys() {
+    let result = [];
+
+    for (let i=0; i<this.keyMap.length; i++) {
+      if (this.keyMap[i]) {
+        for (let j=0; j<this.keyMap[i].length; j++) {
+          let pair = this.keyMap[i][j];
+          // 중복을 허용하지 않는 경우
+          // if (!result.includes(pair[0])) {
+            result.push(pair[0]);
+          // }
+        } 
+      }
+    }
+
+    return result;
+  }
+
+  values() {
+    let result = [];
+
+    for (let i=0; i<this.keyMap.length; i++) {
+      if (this.keyMap[i]) {
+        for (let j=0; j<this.keyMap[i].length; j++) {
+          let pair = this.keyMap[i][j];
+          // 중복을 허용하지 않는 경우
+          // if (!result.includes(pair[1])) {
+            result.push(pair[1]);
+          // }
+        } 
+      }
+    }
+
+    return result;
+  }
 }
 
 let d = new HashTable(10);
