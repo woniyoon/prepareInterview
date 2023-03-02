@@ -65,3 +65,83 @@ hash("pink", 13);    // 5
 //    - 이중데이터 구조 이용 (해당 인덱스 내에 또 다른 자료구조를 사용 ex) 배열, 연결리스트,...)
 // 2. Linear Probing (직선 탐색법)
 //    - 충돌난 인덱스 이후의 빈 공간을 찾아 그곳에 key, value를 저장
+
+
+
+
+
+// 해시테이블 구현
+
+class HashTable {
+  constructor(size=53) {
+    this.keyMap = new Array(size);
+  }
+
+  // 해시 함수
+  _hash(key) {
+    let total = 0;
+    let WEIRD_PRIME = 31;
+
+    for (let i=0; i<Math.min(key.length, 100); i++) {
+      let char = key[i];
+      let value = char.charCodeAt(0) - 96;
+      
+      total = ((total * WEIRD_PRIME) + value) % this.keyMap.length;
+    }
+
+    return total;
+  }
+
+
+  set(key, value) {
+    let index = this._hash(key);
+
+    if (!this.keyMap[index]) {
+      // 해당 key, value 페어를 처음 넣는 경우
+      this.keyMap[index] = [[key, value]];
+    } else {
+      let foundIdx = -1;
+
+      // 이미 저장돼있는 key, value 페어의 경우 인덱스 저장
+      for (let i=0; i<this.keyMap[index].length; i++) {
+        if (this.keyMap[index][i][0] === key) {
+          foundIdx = i;
+        } 
+      }
+
+      // 이미 저장돼있는 페어값이면 value만 업데이트, 없으면 push
+      if (foundIdx > -1) {
+        this.keyMap[index][foundIdx][1] = value;
+      } else {
+        this.keyMap[index].push([key, value]);
+      }
+    }
+
+  }
+
+  get(key) {
+    let index = this._hash(key);
+
+    if (this.keyMap[index]){
+      for(let i=0; i<this.keyMap[index].length; i++) {
+        if(this.keyMap[index][i][0] === key) {
+          return this.keyMap[index][i];
+        } 
+      }
+      return this.keyMap[index]
+    }
+
+    return undefined;
+  }
+}
+
+let d = new HashTable(10);
+d.set("pink", 100);
+d.set("melon", 100);
+d.set("red", 100);
+d.set("cyan", 100);
+d.set("hi", 100);
+d.get("melon")      // 100
+d.set("melon", 200) // 값 변경
+d.get("melon")      // 200
+d.get("none")       // undefined
