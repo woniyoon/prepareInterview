@@ -143,6 +143,8 @@ class HashTable {
         for (let j=0; j<this.keyMap[i].length; j++) {
           let pair = this.keyMap[i][j];
           // 중복을 허용하지 않는 경우
+          // 튜토리얼 상에서는 중복 고려없이 무조건 push를 했기 때문에 이런 분기처리가 가능하나
+          // 작성한 소스코드는 이미 중복된 키값에 대해서는 overwrite되기 때문에 필요없음
           // if (!result.includes(pair[0])) {
             result.push(pair[0]);
           // }
@@ -182,3 +184,17 @@ d.get("melon")      // 100
 d.set("melon", 200) // 값 변경
 d.get("melon")      // 200
 d.get("none")       // undefined
+
+
+
+// Big O notation of Hash Tables
+// Best case / Average case
+// (해시함수가 얼마나 잘 만들어져는지에 달려있음)
+// 삽입: O(1)
+// 삭제: O(1)
+// 접근: O(1)
+
+// Worst case
+// 삽입: O(n)
+// 삭제: O(n)
+// 접근: O(n)
