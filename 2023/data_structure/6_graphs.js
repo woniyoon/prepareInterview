@@ -44,3 +44,38 @@
 //        간선 제거: O(|E|)
 //        쿼리: O(|V| + |E|)     * 특정 간선이 있는지 알아보고 싶을 때 배열과 달리 인덱스로 찾을 수 없어서 오래 걸림
 //        저장: O(|V| + |E|)
+
+
+// IMPLEMENTATION!
+
+class Graph {
+  constructor() {
+    this.adjacencyList = {};
+  }
+
+  addVertex(vertex) {
+    if (this.adjacencyList[vertex]) throw new Error("existing vertex!");
+
+    // 아직 없는 정점일 때
+    this.adjacencyList[vertex] = [];
+  }
+
+  addEdge(vertex1, vertex2) {
+    // 아직 없는 정점이면, 추가해줌
+    if (!this.adjacencyList[vertex1]) this.addVertex(vertex1);
+    if (!this.adjacencyList[vertex2]) this.addVertex(vertex2);
+    
+    this.adjacencyList[vertex1].push(vertex2);
+    this.adjacencyList[vertex2].push(vertex1);
+  }
+}
+
+const graph = new Graph();
+
+graph.addVertex(1);
+graph.addVertex(2);
+graph.addVertex(4);
+graph.addVertex(5);
+graph.addEdge(1,3);
+graph.addEdge(2,4);
+console.log(graph);
