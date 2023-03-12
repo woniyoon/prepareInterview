@@ -97,21 +97,68 @@ class Graph {
     }
     delete this.adjacencyList[vertex];
   }
+
+  recursiveDFS(start) {
+    const isVisited = {};
+    const result = [];
+    const adjacencyList = this.adjacencyList;
+    
+    function check(vertex) {
+      if (isVisited[vertex]) return null;
+
+      isVisited[vertex] = true;
+      result.push(vertex);
+
+      adjacencyList[vertex].forEach(neighbor => {
+        if (!isVisited[neighbor]) {
+          return check(neighbor);
+        }
+      })
+    }
+
+    check(start);
+
+    return result;
+  }
 }
 
 const graph = new Graph();
 
-graph.addVertex(1);
-graph.addVertex(2);
-graph.addVertex(3);
-graph.addVertex(4);
-graph.addVertex(5);
-graph.addVertex(6);
-graph.addEdge(1,3);
-graph.addEdge(1,2);
-graph.addEdge(2,4);
-graph.addEdge(2,6);
-graph.addEdge(3,5);
-graph.removeVertex(2);
-graph.removeVertex(6);
-console.log(graph);
+// graph.addVertex(1);
+// graph.addVertex(2);
+// graph.addVertex(3);
+// graph.addVertex(4);
+// graph.addVertex(5);
+// graph.addVertex(6);
+// graph.addEdge(1,3);
+// graph.addEdge(1,2);
+// graph.addEdge(2,4);
+// graph.addEdge(2,6);
+// graph.addEdge(3,5);
+// graph.removeVertex(2);
+// graph.removeVertex(6);
+// console.log(graph);
+
+graph.addVertex("A");
+graph.addVertex("B");
+graph.addVertex("C");
+graph.addVertex("D");
+graph.addVertex("E");
+graph.addVertex("F");
+
+graph.addEdge("A", "B");
+graph.addEdge("A", "C");
+graph.addEdge("B","D");
+graph.addEdge("C","E");
+graph.addEdge("D","E");
+graph.addEdge("D","F");
+graph.addEdge("E","F");
+graph.recursiveDFS("A");  // [ 'A', 'B', 'D', 'E', 'C', 'F' ]
+
+//          A
+//        /   \
+//       B     C
+//       |     |
+//       D --- E
+//        \   /
+//          F
