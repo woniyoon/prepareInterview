@@ -68,14 +68,50 @@ class Graph {
     this.adjacencyList[vertex1].push(vertex2);
     this.adjacencyList[vertex2].push(vertex1);
   }
+
+  removeEdge(vertex1, vertex2) {
+    if (!(this.adjacencyList[vertex1] && this.adjacencyList[vertex2])) throw new Error("non-existing vertex/vertices!")
+
+    this.adjacencyList[vertex1] = this.adjacencyList[vertex1].filter(item => item !== vertex2);
+    this.adjacencyList[vertex2] = this.adjacencyList[vertex2].filter(item => item !== vertex1);
+  }
+
+  removeVertex(vertex) {
+    for (const v in this.adjacencyList) {
+      // v는 key라서 string, vertex는 숫자라서 엄격 비교를 하면 false로 나옴
+      if (v == vertex) { 
+        delete this.adjacencyList[v];
+      } else {
+        // 각 정점이 지울 vertex를 가지고 있는 경우 하나 하나 다 돌면서 제거
+        this.adjacencyList[v] = this.adjacencyList[v].filter(e => e !== vertex);
+      }
+    }
+  }
+
+  // 처음에 작성을 위와 같이 했으나, 사실상 모든 정점을 둘러볼 필요가 없기 때문에 강의상에서는 아래와 같이 작성
+  betterRemoveVertex(vertex) {
+    while (this.adjacencyList[vertex].length) {
+      // 이 과정을 통해 지우려는 정점과 연결된 정점을 모두 제거 & 그 정점들과 연결된 정점들만 체크할 수 있음
+      const adjacentVertex = this.adjacencyList[vertex].pop();
+      this.removeEdge(adjacentVertex, vertex);
+    }
+    delete this.adjacencyList[vertex];
+  }
 }
 
 const graph = new Graph();
 
 graph.addVertex(1);
 graph.addVertex(2);
+graph.addVertex(3);
 graph.addVertex(4);
 graph.addVertex(5);
+graph.addVertex(6);
 graph.addEdge(1,3);
+graph.addEdge(1,2);
 graph.addEdge(2,4);
+graph.addEdge(2,6);
+graph.addEdge(3,5);
+graph.removeVertex(2);
+graph.removeVertex(6);
 console.log(graph);
