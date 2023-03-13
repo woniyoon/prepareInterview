@@ -143,6 +143,31 @@ class Graph {
 
     return result;
   }
+
+  // iterativeDFS와 비슷하나 vertex가 vertices 배열에서 pop을 했는지 shift를 했는지에 따라
+  // 다른 결과가 나옴!!!!
+  BFS(start) {
+    const isVisited = {};
+    const result = [];
+    const vertices = [start];
+    isVisited[start] = true;
+
+    while (vertices.length) {
+      let vertex = vertices.shift();
+
+      isVisited[vertex] = true;
+      result.push(vertex);
+      
+      this.adjacencyList[vertex].forEach(v => {
+        if (!isVisited[v]) {
+          isVisited[v] = true;
+          vertices.push(v);
+        }
+      })
+    }
+
+    return result;
+  }
 }
 
 const graph = new Graph();
@@ -177,7 +202,8 @@ graph.addEdge("D","E");
 graph.addEdge("D","F");
 graph.addEdge("E","F");
 graph.recursiveDFS("A");  // [ 'A', 'B', 'D', 'E', 'C', 'F' ]
-graph.loopDFS("A");       // [ 'A', 'B', 'D', 'E', 'C', 'F' ]
+graph.iterativeDFS("A");  // [ 'A', 'C', 'E', 'F', 'D', 'B' ]
+graph.BFS("A");           // [ 'A', 'B', 'C', 'D', 'E', 'F' ]
 
 //          A
 //        /   \
