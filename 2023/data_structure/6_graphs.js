@@ -120,6 +120,29 @@ class Graph {
 
     return result;
   }
+
+  iterativeDFS(start) {
+    const isVisited = {};
+    const result = [];
+    const vertices = [start];
+    isVisited[start] = true;
+
+    while (vertices.length) {
+      let vertex = vertices.pop();
+
+      isVisited[vertex] = true;
+      result.push(vertex);
+      
+      this.adjacencyList[vertex].forEach(v => {
+        if (!isVisited[v]) {
+          isVisited[v] = true;
+          vertices.push(v);
+        }
+      })
+    }
+
+    return result;
+  }
 }
 
 const graph = new Graph();
@@ -154,6 +177,7 @@ graph.addEdge("D","E");
 graph.addEdge("D","F");
 graph.addEdge("E","F");
 graph.recursiveDFS("A");  // [ 'A', 'B', 'D', 'E', 'C', 'F' ]
+graph.loopDFS("A");       // [ 'A', 'B', 'D', 'E', 'C', 'F' ]
 
 //          A
 //        /   \
