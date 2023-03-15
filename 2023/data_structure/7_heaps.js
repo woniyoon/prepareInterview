@@ -69,6 +69,46 @@ class MaxBinaryHeap {
 
     return this.values;
   }
+
+  extractMax() {
+    if  (this.values.length === 0) return;
+    // max값인 루트노드와 가장 끝에 있는 노드를 변경해주기
+    this.swap(this.values, 0, this.values.length-1);
+    const maxVal = this.values.pop();
+    let currentIdx = 0;
+    const length = this.values.length;
+
+    while (true) {
+      let currentNode = this.values[currentIdx];
+
+      let leftChildIdx = (currentIdx*2)+1;
+      let rightChildIdx = (currentIdx*2)+2;
+      let leftNode, rightNode;
+      let swap = null;
+
+
+      if (leftChildIdx < length) {
+        leftNode = this.values[leftChildIdx];
+        if (leftNode > currentNode) {
+          swap = leftChildIdx;
+        }
+      }
+      
+      if (rightChildIdx < length) {
+        rightNode = this.values[rightChildIdx];
+        if ((swap === null && rightNode > currentNode) || (swap !== null && rightNode > leftNode)) {
+          swap = rightChildIdx;
+        }
+      }
+      
+      if (swap === null) break;
+
+      this.swap(this.values, swap, currentIdx);
+      currentIdx = swap;
+    }
+    
+    return maxVal;
+  }
 }
 
 
@@ -81,3 +121,4 @@ maxBinaryHeap.insert(18);
 maxBinaryHeap.insert(27);
 maxBinaryHeap.insert(12);
 maxBinaryHeap.insert(55);  // [55, 39, 41, 18, 27, 12, 33]
+maxBinaryHeap.extractMax();  // 55
